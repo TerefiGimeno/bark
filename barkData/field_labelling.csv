@@ -127,12 +127,12 @@ CollectionDate,DateBandageApplied,Species,Site,Tree,Branch,id,Height_m,Tissue,Di
 20180917,20180903,Pinus sylvestris,Rosinedal,18-108,18-108,18108_aft_nee,16,leaf,NA,NA,26.34346885,5.046670638,after,after,check,20181113,LGR & Cryogenic distillation,Chamber measurements. Tracer re-applied on 14-9-2034
 20180917,20180903,Pinus sylvestris,Rosinedal,18-108,18-108,18108_aft_xy,16,xylem,NA,NA,1.90560361,-8.830185841,after,after,check,20181113,LGR & Cryogenic distillation,Chamber measurements. Tracer re-applied on 14-9-2035
 20180917,20180903,Pinus sylvestris,Rosinedal,18-108,18-108,18108_bef_bark,16,bark,NA,NA,-63.85451484,-9.79459886,before,before,check,20181113,LGR & Cryogenic distillation,Chamber measurements. Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree1,one,T1_ctrL_110_nee,16,leaf,NA,NA,-70.77859964,-5.830932158,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree1,one,T1_ctrl_115_branch,16,xylem,NA,NA,-72.63302577,-8.773026034,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree2,one,T2_ctrl_114_branch,16,xylem,NA,NA,-72.36131159,-9.310779174,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree2,one,T2_ctrl_116_nee,16,leaf,NA,NA,-73.21427604,-6.744503701,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree3,one,T3_ctrl_113_nee,16,leaf,NA,NA,-67.76413179,-4.99830318,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree3,one,T3_ctrl_117_branch,16,xylem,NA,NA,-74.78858012,-9.870234812,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree4,one,T4_ctrl_111_branch,16,xylem,NA,NA,-69.59818585,-8.626034337,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree5,one,T5_ctrl_112_nee,16,leaf,NA,NA,-71.07299172,-9.620375753,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
-20180917,20180903,Pinus sylvestris,Rosinedal,Tree5,one,T5_ctrl_118_nee,16,leaf,NA,NA,-66.93626407,-5.118955051,control,control,check,20181113,LGR & Cryogenic distillation,Tracer re-applied on 14-9-2018
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree1,one,T1_ctrL_110_nee,16,leaf,NA,NA,-70.77859964,-5.830932158,control,control,check,20181113,LGR & Cryogenic distillation,control
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree1,one,T1_ctrl_115_branch,16,xylem,NA,NA,-72.63302577,-8.773026034,control,control,check,20181113,LGR & Cryogenic distillation,control
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree2,one,T2_ctrl_114_branch,16,xylem,NA,NA,-72.36131159,-9.310779174,control,control,check,20181113,LGR & Cryogenic distillation,control
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree2,one,T2_ctrl_116_nee,16,leaf,NA,NA,-73.21427604,-6.744503701,control,control,check,20181113,LGR & Cryogenic distillation,control
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree3,one,T3_ctrl_113_nee,16,leaf,NA,NA,-67.76413179,-4.99830318,control,control,check,20181113,LGR & Cryogenic distillation,control
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree3,one,T3_ctrl_117_branch,16,xylem,NA,NA,-74.78858012,-9.870234812,control,control,check,20181113,LGR & Cryogenic distillation,control
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree4,one,T4_ctrl_111_branch,16,xylem,NA,NA,-69.59818585,-8.626034337,control,control,check,20181113,LGR & Cryogenic distillation,control
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree5,one,T5_ctrl_112_nee,16,leaf,NA,NA,-71.07299172,-9.620375753,control,control,check,20181113,LGR & Cryogenic distillation,control
+20180917,20180903,Pinus sylvestris,Rosinedal,Tree5,one,T5_ctrl_118_nee,16,leaf,NA,NA,-66.93626407,-5.118955051,control,control,check,20181113,LGR & Cryogenic distillation,control
