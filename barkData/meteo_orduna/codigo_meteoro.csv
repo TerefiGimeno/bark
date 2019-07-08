@@ -1,0 +1,12 @@
+Codigo,Descrip,Unidad
+11,velocidad media del viento,m.s-1
+12,direccion media del viento,grados
+14,velocidad maxima del viento,m.s-1
+16,sigma de la velocidad del viento,m.s
+17,sigma de la direccion del viento,grados
+21,temperatura del aire,grados C
+31,humedad relativa del aire,porcentaje
+40,precipitacion,mm
+50,presion atmosferica,mb
+70,irradicacion solar,W.m-2
+73,radiacion solar UV,j.m-2.h-1
