@@ -53,58 +53,58 @@ CollectionDate,DateBandageApplied,Species,Site,Campaing,Tree,Branch,id,Height_m,
 20180720,20180719,Pinus sylvestris,Rosinedal,Summer2018,17-104,17-104first,17-104-first,16,xylem,NA,NA,NA,274.9079999,-10.20965143,after,after,20180823,20190823,LGR & Cryogenic distillation,NA
 20180720,20180719,Pinus sylvestris,Rosinedal,Summer2018,17-102,Simone4,Simone4,16,xylem,NA,NA,NA,-94.80295291,-11.62125945,before,before,20180822,20190823,LGR & Cryogenic distillation,NA
 20180720,20180719,Pinus sylvestris,Rosinedal,Summer2018,17-102,Simone4,Simone4,16,xylem,NA,NA,NA,205.5487497,-10.40546465,after,after,20180822,20190823,LGR & Cryogenic distillation,NA
-20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,0,70,11,xylem,NA,NA,1,NA,NA,control,control,20191008,NA,NA,NA
+20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,0,70,11,xylem,NA,NA,1,-44.0916,-6.863734,control,control,20191008,20191206,NA,flagged ethanol
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,0,70,11,bark,NA,NA,2,NA,NA,control,control,20191009,NA,NA,NA
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,0,70,11,leaf,NA,NA,3,NA,NA,control,control,20191009,NA,NA,NA
-20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,xylem,0.8,10.7,4,NA,NA,before,before,20191008,NA,NA,NA
+20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,xylem,0.8,10.7,4,-46.60252,-6.637124,before,before,20191008,20191206,NA,flagged ethanol
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,bark,0.8,10.7,5,NA,NA,before,before,20191009,NA,NA,NA
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,leaf,0.8,10.7,6,NA,NA,before,before,20191009,NA,NA,NA
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,leaf,0.8,10.7,7,NA,NA,after,after,20191009,NA,NA,NA
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,bark,0.8,10.7,8,NA,NA,after,after,20191009,NA,NA,NA
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,xylem,0.8,10.7,9,NA,NA,after,after,20191003,NA,NA,NA
-20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,2,72,11,xylem,0.96,8.75,10,NA,NA,before,before,20191008,NA,NA,very weird bandage
+20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,2,72,11,xylem,0.96,8.75,10,-47.2019,-6.622794,before,before,20191008,20191206,NA,very weird bandage. Flagged ethanol
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,2,72,11,xylem,0.96,8.75,11,NA,NA,after,after,20191003,NA,NA,very weird bandage
-20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,3,73,11,xylem,0.61,8.93,12,NA,NA,before,before,20191003,NA,NA,xylem sampling really close to the bandage
+20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,3,73,11,xylem,0.61,8.93,12,-46.09555,-6.546055,before,before,20191003,20191206,NA,xylem sampling really close to the bandage
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,3,73,11,xylem,0.61,8.93,13,NA,NA,after,after,20191003,NA,NA,NA
-20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,4,74,11,xylem,0.7,9.34,14,NA,NA,before,before,20191002,NA,NA,NA
+20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,4,74,11,xylem,0.7,9.34,14,-50.43596,-8.959638,before,before,20191002,20191206,NA,flagged ethanol
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,4,74,11,xylem,0.7,9.34,15,NA,NA,after,after,20191002,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,1,11,7.8,leaf,1.33,10.12,16,NA,NA,before,before,20191009,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,1,11,7.8,leaf,1.33,10.12,17,NA,NA,after,after,20191009,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,1,11,7.8,bark,1.33,10.12,18,NA,NA,before,before,20191009,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,1,11,7.8,xylem,1.33,10.12,19,NA,NA,before,before,20191003,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,1,11,7.8,xylem,1.33,10.12,19,-43.92448,-7.160564,before,before,20191003,20191206,NA,flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,1,11,7.8,xylem,1.33,10.12,20,NA,NA,after,after,20191001,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,0,20,10.6,bark,NA,NA,21,NA,NA,control,control,NA,NA,NA,no bandage (control)
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,0,20,10.6,leaf,NA,NA,22,NA,NA,control,control,NA,NA,NA,no bandage (control)
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,3,13,7.8,xylem,1.14,10.11,23,NA,NA,after,after,20191002,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,0,10,7.8,bark,NA,NA,24,NA,NA,control,control,20191009,NA,NA,no bandage (control)
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,0,10,7.8,xylem,NA,NA,25,NA,NA,control,control,20191003,NA,NA,no bandage (control). Thu
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,0,10,7.8,xylem,NA,NA,25,-43.90676,-6.740132,control,control,20191003,20191206,NA,no bandage (control). Flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,0,10,7.8,leaf,NA,NA,26,NA,NA,control,control,20191009,NA,NA,no bandage (control)
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,1,11,7.8,bark,1.33,10.12,27,NA,NA,after,after,20191009,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,2,12,7.8,xylem,0.81,10.97,28,NA,NA,before,before,20191008,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,2,12,7.8,xylem,0.81,10.97,28,-43.36906,-4.69534,before,before,20191008,20191206,NA,flagged with LOTS of methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,2,12,7.8,xylem,0.81,10.97,29,NA,NA,after,after,20191008,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,3,13,7.8,xylem,1.14,10.11,30,NA,NA,before,before,20191003,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,3,23,10.6,xylem,0.8,10.04,32,NA,NA,before,before,20191008,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,1,3,13,7.8,xylem,1.14,10.11,30,-44.5934,-6.970138,before,before,20191003,20191206,NA,flagged methanol and ethanol
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,3,23,10.6,xylem,0.8,10.04,32,-35.53158,-4.695608,before,before,20191008,20191206,NA,flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,1,21,10.6,xylem,0.94,8.86,33,NA,NA,after,after,20191002,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,2,22,10.6,xylem,1.34,10.03,34,NA,NA,before,before,20191001,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,2,22,10.6,xylem,1.34,10.03,34,-39.05766,-6.487754,before,before,20191001,20191206,NA,flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,2,22,10.6,xylem,1.34,10.03,35,NA,NA,after,after,20191002,NA,NA,Forked branch. Sample centre and one of the lateral ones.
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,1,21,10.6,bark,0.94,8.86,36,NA,NA,after,after,20191009,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,1,21,10.6,bark,0.94,8.86,37,NA,NA,before,before,20191009,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,1,21,10.6,leaf,0.94,8.86,38,NA,NA,after,after,20191009,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,1,21,10.6,leaf,0.94,8.86,39,NA,NA,before,before,20191009,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,0,20,10.6,xylem,NA,NA,40,NA,NA,control,control,20191002,NA,NA,no bandage (control)
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,0,20,10.6,xylem,NA,NA,40,-48.89538,-6.73039,control,control,20191002,20191206,NA,no bandage (control). Flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,2,32,6.5,xylem,0.86,9.85,41,NA,NA,after,after,20191002,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,2,32,6.5,xylem,0.86,9.85,42,NA,NA,before,before,20191001,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,2,32,6.5,xylem,0.86,9.85,42,-38.88178,-6.303502,before,before,20191001,20191206,NA,flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,bark,0.87,9.47,43,NA,NA,after,after,NA,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,xylem,0.87,9.47,44,NA,NA,after,after,20191001,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,bark,0.87,9.47,45,NA,NA,before,before,NA,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,leaf,0.87,9.47,46,NA,NA,before,before,NA,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,leaf,0.87,9.47,46,-40.81638,-6.29035,before,before,NA,20191206,NA,flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,0,30,6.5,bark,NA,NA,47,NA,NA,control,control,NA,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,0,30,6.5,xylem,NA,NA,48,NA,NA,control,control,20191002,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,0,30,6.5,leaf,NA,NA,49,NA,NA,control,control,NA,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,1,21,10.6,xylem,0.94,8.86,50,NA,NA,before,before,20191001,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,1,21,10.6,xylem,0.94,8.86,50,-38.27004,-5.800454,before,before,20191001,20191206,NA,flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,4,1,41,7.8,leaf,1.16,11.34,51,NA,NA,before,before,NA,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,4,0,40,7.8,bark,NA,NA,52,NA,NA,control,control,NA,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,4,0,40,7.8,xylem,NA,NA,53,NA,NA,control,control,20191008,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,4,0,40,7.8,xylem,NA,NA,53,-21.93048,-4.570164,control,control,20191008,20191206,NA,flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,4,0,40,7.8,leaf,NA,NA,54,NA,NA,control,control,NA,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,4,34,6.5,xylem,1.11,9.78,55,NA,NA,after,after,20191009,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,4,34,6.5,xylem,1.11,9.78,56,NA,NA,before,before,20191008,NA,NA,NA
