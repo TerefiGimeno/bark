@@ -1,5 +1,5 @@
-fileNames <- as.list(paste0('barkData/meteo_orduna/detailed/',
-                            list.files('barkData/meteo_orduna/detailed/')))
+fileNames <- as.list(paste0('barkData/meteo_orduna/amurrio/',
+                            list.files('barkData/meteo_orduna/amurrio/')))
 allRaw <- dplyr::bind_rows(lapply(fileNames, data.table::fread))
 names(allRaw) <- c(as.character(read.csv('barkData/meteo_Orduna/descripcion_datos.csv')[,2]))
 valuesL <- strsplit(allRaw$MEDICION, ',')
@@ -15,17 +15,6 @@ clean$DateTime <- lubridate::dmy_hm(as.character(clean$DateTime))
 clean <- doBy::orderBy(~DateTime, clean)
 codes <- read.csv('barkData/meteo_Orduna/codigo_meteoro.csv')[, c('CODIGO_METEORO', 'short')]
 clean <- dplyr::left_join(clean, codes, by = 'CODIGO_METEORO')[,c('DateTime', 'short', 'value')]
-library(dplyr)
-library(tidyr)
-meteo <- clean
-meteo <- clean %>% spread(short, value)
+meteo <- subset(clean, short == 'P_tot')[, c('DateTime', 'value')]
 meteo$Date <- as.Date(meteo$DateTime)
-meteo$VPD <- 0.61365 * exp(17.502 * meteo$AirT_avg/(240.97 + meteo$AirT_avg)) * (1 -(meteo$RH_avg/100))
-meteoDay <- summarise(group_by(meteo, Date), Pday = sum(P_tot),
-                      Tmean = mean(AirT_avg), Tmin = min(AirT_avg),
-                      Tmax = max(AirT_avg),
-                      vpd = mean(VPD), vpdMax = max(VPD))
-source('barkRead/amurrio.R')
-meteoDay <- left_join(meteoDay, amurrio, by='Date')
-write.csv(meteoDay, file = 'barkOutput/Orduna_2018-2019.csv', row.names = F)
-rm(fileNames, valuesL, allRaw, clean, codes, meteo, amurrio)
+amurrio <- summarise(group_by(meteo, Date), Pday_amu = sum(value))
