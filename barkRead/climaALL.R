@@ -4,7 +4,7 @@ lengthNA <- function(x){
 s.err <- function(x){
   return(sd(x, na.rm = T)/sqrt(lengthNA(x)))
 }
-stationName <- 'Amurrio'
+stationName <- 'Artikutza'
 Precip <- read.csv(paste0('barkData/meteo_Orduna/Pday_', stationName, '.csv'))
 Tmean <- read.csv(paste0('barkData/meteo_Orduna/TmeanDay_', stationName, '.csv'))
 Tmin <- read.csv(paste0('barkData/meteo_Orduna/TminDay_', stationName, '.csv'))
