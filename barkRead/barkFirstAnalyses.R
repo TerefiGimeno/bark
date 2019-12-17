@@ -1,6 +1,7 @@
 source('barkRead/basicFunTEG.R')
 bark <- read.csv('barkData/field_labelling.csv')
-barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(subset(bark, Site == 'Monte Santiago'),
+barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(subset(bark, Site == 'Monte Santiago'
+                                                                & Campaing == 'Winter2019'),
                                                          id, Tissue, Segment2),
                                          d2H = mean(d2H, na.rm = T), d18O = mean(d18O, na.rm = T)))
 msControl <- subset(barkID, Segment2 == 'control' & Tissue == 'xylem')
