@@ -1,9 +1,8 @@
 source('barkRead/basicFunTEG.R')
 bark <- read.csv('barkData/field_labelling.csv')
-barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(subset(bark, Site == 'Monte Santiago'
-                                                                & Campaing == 'Winter2019'),
-                                                         id, Tissue, Segment2),
+barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Campaing, id, Tissue, Segment2),
                                          d2H = mean(d2H, na.rm = T), d18O = mean(d18O, na.rm = T)))
+barkID <- dplyr::left_join(barkID, bark[, -c(14, 15)], by = c('Campaing', 'id', 'Tissue', 'Segment2'))
 msControl <- subset(barkID, Segment2 == 'control' & Tissue == 'xylem')
 names(msControl)[(ncol(msControl)-1):ncol(msControl)] <- paste0(names(msControl)[(ncol(msControl)-1):ncol(msControl)], '_ctr')
 msControl$Tree <- substring(as.character(msControl$id), 1, 1)

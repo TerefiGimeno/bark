@@ -110,10 +110,10 @@ CollectionDate,DateBandageApplied,Species,Site,Campaing,Tree,Branch,id,Height_m,
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,2,3,23,10.6,xylem,0.8,10.04,NA,169.8141824,-5.311270384,after,after,20191003,20191216,LGR & Cryogenic distillation,Find exetainer!!! Forked branch. Sample centre and one of the lateral ones. I think this was exetainer #31 (extracted and analysed). Flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,0,30,6.5,bark,NA,NA,47,NA,NA,control,control,NA,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,0,30,6.5,leaf,NA,NA,49,NA,NA,control,control,NA,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,0,30,6.5,xylem,NA,NA,48,-42.93922976,-5.25025318,control,control,20191002,NA,NA,NA
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,0,30,6.5,xylem,NA,NA,48,-42.93922976,-5.25025318,control,control,20191002,20191205,LGR & Cryogenic distillation,flagged methanol and ethanol. This was analysed as sample 46 (never extracted)
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,bark,0.87,9.47,45,NA,NA,before,before,NA,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,bark,0.87,9.47,43,NA,NA,after,after,NA,NA,NA,NA
-20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,leaf,0.87,9.47,46,-42.93922976,-5.25025318,before,before,NA,20191205,LGR & Cryogenic distillation,flagged methanol and ethanol. Sample #46 was never extracted! I think this sample #48
+20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,leaf,0.87,9.47,46,NA,NA,before,before,NA,20191205,LGR & Cryogenic distillation,flagged methanol and ethanol. Sample #46 was never extracted! I think this sample #48
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,leaf,0.87,9.47,59,NA,NA,after,after,NA,NA,NA,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,xylem,0.87,9.47,60,-50.62005384,-8.277676067,before,before,20191001,20191211,LGR & Cryogenic distillation,flagged methanol and ethanol
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer2019,3,1,31,6.5,xylem,0.87,9.47,44,48.39923927,-6.306503735,after,after,20191001,20191216,LGR & Cryogenic distillation,flagged methanol and ethanol
@@ -157,7 +157,7 @@ CollectionDate,DateBandageApplied,Species,Site,Campaing,Tree,Branch,id,Height_m,
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,0,70,11,bark,NA,NA,2,-44.01521676,-3.80023134,control,control,20191009,20191205,LGR & Cryogenic distillation,flagged ethanol
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,0,70,11,leaf,NA,NA,3,16.48151438,18.23709291,control,control,20191009,20191205,LGR & Cryogenic distillation,flagged ethanol
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,0,70,11,xylem,NA,NA,1,-46.33512753,-5.486168661,control,control,20191008,20191205,LGR & Cryogenic distillation,flagged ethanol
-20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,bark,0.8,10.7,5,-43.05334974,-3.934067955,before,before,20191009,NA,LGR & Cryogenic distillation,NA
+20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,bark,0.8,10.7,5,-43.05334974,-3.934067955,before,before,20191009,20191205,LGR & Cryogenic distillation,flagged ethanol
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,bark,0.8,10.7,8,90.43981091,-3.901055137,after,after,20191009,20191216,LGR & Cryogenic distillation,NA
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,leaf,0.8,10.7,6,14.93519908,17.07364867,before,before,20191009,20191205,LGR & Cryogenic distillation,flagged ethanol
 20190704,20190703,Fagus sylvatica,Monte Santiago,Summer2019,7,1,71,11,leaf,0.8,10.7,7,115.4788155,17.61515276,after,after,20191009,20191216,LGR & Cryogenic distillation,flagged ethanol
