@@ -56,3 +56,40 @@ climYearSumm <- dplyr::summarise(dplyr::group_by(climYear),
 
 climYearSumm
 climMonthSumm
+
+rosi <- read.csv('barkData/Vindeln_temp.csv')
+rosi$DateTime <- paste0(as.character(rosi$Date), ' ', as.character(rosi$Time_UTC))
+rosi$DateTime <- lubridate::dmy_hms(as.character(rosi$DateTime))
+rosi$Date <- lubridate::dmy(as.character(rosi$Date))
+rosiDay <- dplyr::summarise(dplyr::group_by(rosi, Date), TmeanDay_C=mean(Air_temp_C, na.rm = T),
+                            TmaxDay_C=max(Air_temp_C, na.rm = T), TminDay_C=min(Air_temp_C, na.rm = T))
+clim <- rosiDay
+clim$Year <- lubridate::year(clim$Date)
+clim$Month <- lubridate::month(clim$Date, label = T)
+clim$Month_Y <- paste0(clim$Year, '-', clim$Month)
+climMonth <- dplyr::summarise(dplyr::group_by(clim, Month_Y),
+                              TmeanMonth=mean(TmeanDay_C, na.rm = T), 
+                              TminMonth=mean(TminDay_C, na.rm = T), TmaxMonth=mean(TmaxDay_C, na.rm = T))
+climMonth$Month <- substr(climMonth$Month_Y, 6, 8)
+climMonth$Year <- substr(climMonth$Month_Y, 1, 4)
+climMonthSumm <- dplyr::summarise(dplyr::group_by(climMonth, Month),
+                                  Tmean_avg_month = mean(TmeanMonth, na.rm = T),
+                                  Tmean_se_month = s.err(TmeanMonth),
+                                  Tmin_avg_month = mean(TminMonth, na.rm = T),
+                                  Tmin_se_month = s.err(TminMonth),
+                                  Tmax_avg_month = mean(TmaxMonth, na.rm = T),
+                                  Tmax_se_month = s.err(TmaxMonth))
+climYear <- dplyr::summarise(dplyr::group_by(clim, Year),
+                             TmeanYear=mean(TmeanDay_C, na.rm = T),
+                             TminYear=mean(TminDay_C, na.rm = T),
+                             TmaxYear=mean(TmaxDay_C, na.rm = T))
+climYearSumm <- dplyr::summarise(dplyr::group_by(climYear),
+                                 Tmean_avg_year = mean(TmeanYear, na.rm = T),
+                                 Tmean_se_year = s.err(TmeanYear),
+                                 Tmin_avg_year = mean(TminYear, na.rm = T),
+                                 Tmin_se_year = s.err(TminYear),
+                                 Tmax_avg_year = mean(TmaxYear, na.rm = T),
+                                 Tmax_se_year = s.err(TmaxYear))
+
+climYearSumm
+climMonthSumm
