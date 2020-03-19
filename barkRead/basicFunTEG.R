@@ -38,7 +38,7 @@ rmDup <- function(dfr, whichvar){
 }
 s.err <- function(x){sd(x)/sqrt(length(x))}
 
-s.err.na <- function(x){sd(x, na.rm = TRUE)/sqrt(length(x))}
+s.err.na <- function(x){sd(x, na.rm = TRUE)/sqrt(lengthWithoutNA(x))}
 
 coef.var <- function(x){sd(x)/mean(x)}
 
