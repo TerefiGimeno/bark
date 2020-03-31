@@ -2,7 +2,8 @@ source('barkRead/basicFunTEG.R')
 bark <- read.csv('barkData/field_labelling.csv')
 barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaing, Tree,
                                                          id, Tissue, Segment2),
-                                         d2H = mean(d2H, na.rm = T), d18O = mean(d18O, na.rm = T)))
+                                         d2H = mean(d2H, na.rm = T), d18O = mean(d18O, na.rm = T),
+                                         rwc = mean(RWC, na.rm = T)))
 xylemCont <- subset(barkID, Tissue == 'xylem' &
                       Segment2 == 'control')[, c('Campaing', 'Tree', 'Species', 'd2H', 'd18O')]
 names(xylemCont)[(ncol(xylemCont)-1):ncol(xylemCont)] <- c('d2H_cont', 'd18O_cont')
@@ -14,12 +15,15 @@ xylemAft <- subset(barkID, Tissue == 'xylem' &
 names(xylemAft)[(ncol(xylemAft)-1):ncol(xylemAft)] <- c('d2H_aft', 'd18O_aft')
 xylem <- merge(xylemBef, xylemAft, by = c('Campaing', 'Tree', 'id'), all = T)
 xylem <- merge(xylem, xylemCont, by = c('Campaing', 'Tree'), all = T)
-xylem$d2H_bef_alt <- ifelse(is.na(xylem$d2H_bef), xylem$d2H_cont, xylem$d2H_bef)
-xylem$d18O_bef_alt <- ifelse(is.na(xylem$d18O_bef), xylem$d18O_cont, xylem$d18O_bef)
+# xylem$d2H_bef_alt <- ifelse(is.na(xylem$d2H_bef), xylem$d2H_cont, xylem$d2H_bef)
+# xylem$d18O_bef_alt <- ifelse(is.na(xylem$d18O_bef), xylem$d18O_cont, xylem$d18O_bef)
 xylem$dif_d2H_cont.bef <- xylem$d2H_cont - xylem$d2H_bef
 xylem$dif_d18O_cont.bef <- xylem$d18O_cont - xylem$d18O_bef
-xylem$dif_d2H_aft.bef <- xylem$d2H_aft - xylem$d2H_bef_alt
-xylem$dif_d18O_aft.bef <- xylem$d18O_aft - xylem$d18O_bef_alt
+# xylem$dif_d2H_aft.bef <- xylem$d2H_aft - xylem$d2H_bef_alt
+# xylem$dif_d18O_aft.bef <- xylem$d18O_aft - xylem$d18O_bef_alt
+xylem$dif_d2H_aft.bef <- xylem$d2H_aft - xylem$d2H_bef
+xylem$dif_d18O_aft.bef <- xylem$d18O_aft - xylem$d18O_bef
+
 
 summer18 <- subset(xylem, Campaing == 'Summer2018')
 t.test(summer18$dif_d18O_aft.bef, alternative = 'two.sided', mu = 0)
