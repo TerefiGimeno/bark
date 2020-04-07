@@ -46,11 +46,17 @@ xylem$ppm_2H_after <- calc_ratio_ppm(xylem$d2H_aft, VSMOW_2R)
 xylem$vol_contrib_uL <- (xylem$rwc_aft * xylem$xylVol) * 1000 *
   (xylem$ppm_2H_after - xylem$ppm_2H_before)/(xylem$ppm_2H_label - xylem$ppm_2H_before)
 xylem$inf_rate <- xylem$vol_contrib/(xylem$surface * 0.0001)
+xylem$siteCamp <- as.factor(paste0(xylem$Site, '-', xylem$Campaign))
 
 summary(lm(log(inf_rate) ~ Species, data = subset(xylem, Campaign == 'Summer2019')))
 summary(lm(log(inf_rate) ~ Site, data = subset(xylem, Species == 'Pinus sylvestris')))
-summary(lm(log(inf_rate) ~ Site,
-           data = subset(xylem, Campaign == 'Summer2018' | Campaign == 'Summer2019')))
+# summary(lm(log(inf_rate) ~ Site,
+#           data = subset(xylem, Campaign == 'Summer2018' | Campaign == 'Summer2019')))
 summary(lm(log(inf_rate) ~ Campaign,
            data = subset(xylem, Site == 'Spain' & Species == 'Pinus sylvestris')))
 summary(lm(log(inf_rate) ~ Campaign, data = subset(xylem, Site == 'Sweden')))
+summary(lm(log(inf_rate) ~ siteCamp, data = subset(xylem, Species == 'Pinus sylvestris')))
+anova(lm(log(inf_rate) ~ siteCamp, data = subset(xylem, Species == 'Pinus sylvestris')))
+TukeyHSD(aov(log(inf_rate) ~ siteCamp, data = subset(xylem, Species == 'Pinus sylvestris')))
+dplyr::summarise(dplyr::group_by(subset(xylem, Species == 'Pinus sylvestris'),
+                                 siteCamp), var = mean(log(inf_rate), na.rm =T))
