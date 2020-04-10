@@ -1,8 +1,9 @@
 source('barkRead/basicFunTEG.R')
 source('barkRead/delta_conversion.R')
 bark <- read.csv('barkData/field_labelling.csv')
+bark$nday <- bark$CollectionDate - bark$DateBandageApplied
 segments <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign, Tree, id),
-                                           diam = mean(Diam_cm, na.rm = T),
+                                           nday_bandage = mean(nday), diam = mean(Diam_cm, na.rm = T),
                                            len = mean(Length_cm, na.rm = T)))
 segments$surface_exposed_cm2 <- 2 * pi * (segments$diam/2) * segments$len
 segments$xylem_vol_sampled <- pi * (segments$diam/2)^2 * 10
@@ -36,7 +37,8 @@ xylemAft <- subset(barkID, Tissue == 'xylem' &
                      Segment2 == 'after')[,c('Campaign', 'Tree', 'Species', 'id', 'rwc', 'd2H', 'd18O')]
 names(xylemAft)[(ncol(xylemAft)-2):ncol(xylemAft)] <- c('rwc_aft', 'd2H_aft', 'd18O_aft')
 xylem <- merge(xylemBef, xylemAft, by = c('Campaign', 'Tree', 'Species', 'id'), all = F)
-xylem <- merge(xylem, segments[, c('Species', 'Campaign', 'Tree', 'id', 'surface', 'xylVol')],
+xylem <- merge(xylem, segments[, c('Species', 'Campaign', 'Tree', 'id',
+                                   'nday_bandage', 'surface', 'xylVol')],
                by = c('Species', 'Campaign', 'Tree', 'id'), all.x = T, all.y = F)
 xylem$Site <- ifelse(xylem$Campaign == 'Autumn2018' | xylem$Campaign == 'Summer2018',
                      'Sweden', 'Spain')
@@ -45,7 +47,7 @@ xylem$ppm_2H_before <- calc_ratio_ppm(xylem$d2H_bef, VSMOW_2R)
 xylem$ppm_2H_after <- calc_ratio_ppm(xylem$d2H_aft, VSMOW_2R)
 xylem$vol_contrib_uL <- (xylem$rwc_aft * xylem$xylVol) * 1000 *
   (xylem$ppm_2H_after - xylem$ppm_2H_before)/(xylem$ppm_2H_label - xylem$ppm_2H_before)
-xylem$inf_rate <- xylem$vol_contrib/(xylem$surface * 0.0001)
+xylem$inf_rate <- xylem$vol_contrib/(xylem$surface * 0.0001 * xylem$nday_bandage)
 xylem$siteCamp <- as.factor(paste0(xylem$Site, '-', xylem$Campaign))
 
 summary(lm(log(inf_rate) ~ Species, data = subset(xylem, Campaign == 'Summer2019')))
