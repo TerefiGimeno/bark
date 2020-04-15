@@ -1,9 +1,8 @@
 source('barkRead/analyses_uptake_rate.R')
 library(multcomp)
 # figure out multicomparision
-amod <- aov(log(inf_rate_mmol) ~ siteCamp, data = subset(xylem, Species == 'Pinus sylvestris'))
 ### specify all pair-wise comparisons among levels of variable "tension"
-tuk <- glht(amod, linfct = mcp(siteCamp = "Tukey"))
+tuk <- glht(inf_rate_siteCamp, linfct = mcp(siteCamp = "Tukey"))
 ### extract information
 tuk.cld <- cld(tuk)
 ### use sufficiently large upper margin

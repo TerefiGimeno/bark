@@ -52,21 +52,34 @@ xylem$inf_rate_uL <- xylem$vol_contrib_uL/(xylem$surface * 0.0001 * xylem$nday_b
 xylem$inf_rate_mmol <- xylem$vol_contrib_mmol/(xylem$surface * 0.0001 * xylem$nday_bandage)
 xylem$siteCamp <- as.factor(paste0(xylem$Site, '-', xylem$Campaign))
 
-summary(lm(log(inf_rate) ~ Species, data = subset(xylem, Campaign == 'Summer2019')))
-summary(lm(log(inf_rate) ~ Site, data = subset(xylem, Species == 'Pinus sylvestris')))
+summary(lm(log(inf_rate_mmol) ~ Species, data = subset(xylem, Campaign == 'Summer2019')))
+summary(lm(log(inf_rate_mmol) ~ Site, data = subset(xylem, Species == 'Pinus sylvestris')))
 # summary(lm(log(inf_rate) ~ Site,
 #           data = subset(xylem, Campaign == 'Summer2018' | Campaign == 'Summer2019')))
-summary(aov(log(inf_rate) ~ Campaign,
+summary(aov(log(inf_rate_mmol) ~ Campaign,
            data = subset(xylem, Site == 'Spain' & Species == 'Pinus sylvestris')))
-summary(aov(log(inf_rate) ~ Campaign, data = subset(xylem, Site == 'Sweden')))
-anova(lm(log(inf_rate) ~ siteCamp, data = subset(xylem, Species == 'Pinus sylvestris')))
-TukeyHSD(aov(log(inf_rate) ~ siteCamp, data = subset(xylem, Species == 'Pinus sylvestris')))
+summary(aov(log(inf_rate_mmol) ~ Campaign, data = subset(xylem, Site == 'Sweden')))
+anova(lm(log(inf_rate_mmol) ~ siteCamp, data = subset(xylem, Species == 'Pinus sylvestris')))
+TukeyHSD(aov(log(inf_rate_mmol) ~ siteCamp, data = subset(xylem, Species == 'Pinus sylvestris')))
 dplyr::summarise(dplyr::group_by(subset(xylem, Species == 'Pinus sylvestris'),
-                                 siteCamp), var = mean(log(inf_rate), na.rm =T))
+                                 siteCamp), var = mean(log(inf_rate_mmol), na.rm =T))
 dplyr::summarise(dplyr::group_by(subset(xylem, Species == 'Pinus sylvestris'),
-                                 siteCamp), var = median(log(inf_rate), na.rm =T))
+                                 siteCamp), var = median(log(inf_rate_mmol), na.rm =T))
 dplyr::summarise(dplyr::group_by(subset(xylem, Species == 'Pinus sylvestris'),
-                                 siteCamp), var = median(inf_rate, na.rm =T))
+                                 siteCamp), var = median(inf_rate_mmol, na.rm =T))
 dplyr::summarise(dplyr::group_by(subset(xylem, Species == 'Pinus sylvestris'),
-                                 siteCamp), var = mean(inf_rate, na.rm =T))
+                                 siteCamp), var = mean(inf_rate_mmol, na.rm =T))
 
+# the same analyses with LMM
+library(nlme)
+inf_rate_Spp <- lme(log(inf_rate_mmol) ~ Species, random = ~1|Tree, na.action = na.exclude,
+                   data = subset(xylem, Campaign == 'Summer2019'))
+k <- xylem
+k$lgI <- log(k$inf_rate_mmol)
+k <- subset(k[which(!is.na(k$lgI)), ], Species == 'Pinus sylvestris')
+kk <- doBy::summaryBy(lgI ~ Tree + Campaign, FUN = length, data = k)
+k <- merge(k, kk, by = c('Campaign', 'Tree'), all = T)
+k <- subset(k, lgI.length >= 2)
+inf_rate_siteCamp <- lme(lgI ~ siteCamp, random = ~1|Tree, na.action = na.exclude,
+                         data = k)
+anova(inf_rate_siteCamp)
