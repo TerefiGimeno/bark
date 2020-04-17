@@ -53,6 +53,7 @@ d18OlmSwPSbark <- lm(d18O ~ Campaign * Segment2,
                      data = subset(barkID, Tissue == 'bark' & Site == 'Sweden'))
 
 
-
+barkSumm <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign, Tissue, Segment2),
+                                         d2H = mean(d2H, na.rm = T), d18O = mean(d18O, na.rm = T)))
 
 

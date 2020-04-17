@@ -31,3 +31,5 @@ plot(gx$Cond~gx$timeMin, pch=19, col=as.numeric(gx$Obs))
 plot(ctrl$Cond ~ ctrl$timeMin, ylim = c(0, 0.12), xlim= c(0, 75))
 points(bnd$Cond ~ bnd$timeMin, pch = 19)
 View(bnd)
+
+r2 <- subset(gx, round =='two')
