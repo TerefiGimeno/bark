@@ -58,3 +58,13 @@ summer19_Fs <- subset(xylem, Campaign == 'Summer2019' & Species == 'Fagus sylvat
 # t.test(summer19_Fs$dif_d2H_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(summer19_Fs$dif_d18O_aft.bef, alternative = 'two.sided', mu = 0)
 t.test(summer19_Fs$dif_d2H_aft.bef, alternative = 'two.sided', mu = 0)
+
+xylemSumm <- dplyr::summarise(dplyr::group_by(xylem, Campaign, Species),
+                              d2Hctr = mean(d2H_cont, na.rm = T), d2Hctr_se = s.err.na(d2H_cont),
+                              d18Octr = mean(d18O_cont, na.rm = T), d18Octr_se = s.err.na(d18O_cont),
+                              d2Hbef = mean(d2H_bef, na.rm = T), d2Hbef_se = s.err.na(d2H_bef),
+                              d18Obef = mean(d18O_bef, na.rm = T), d18Obef_se = s.err.na(d18O_bef),
+                              d2Haft = mean(d2H_aft, na.rm = T), d2Haft_se = s.err.na(d2H_aft),
+                              d18Oaft = mean(d18O_aft, na.rm = T), d18Octr_se = s.err.na(d18O_aft))
+xylemSumm <- doBy::summaryBy(d2H_cont + d18O_cont + d2H_bef + d18O_bef + d2H_aft + d18O_aft ~
+                               Campaign + Species, FUN = c(mean.na, s.err.na), data = xylem)
