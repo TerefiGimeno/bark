@@ -76,18 +76,18 @@ nf <- layout(matrix(c(rep(1, 2), 2), 1, 3, byrow = TRUE), c(2, 1), TRUE)
 layout.show(nf)
 
 par(mar = c(6, 6, 2, 0), cex = 1.3)
-boxplot(log(inf_rate) ~ crap, data = subset(xylem, Species == 'Pinus sylvestris'),
-        col = myPal, outline = FALSE, xaxt='n',  ylim = c(2.5, 8), cex.lab = 1.3,
+boxplot(log(inf_rate_mmol) ~ crap, data = subset(xylem, Species == 'Pinus sylvestris'),
+        col = myPal, outline = FALSE, xaxt='n',  ylim = c(0, 5), cex.lab = 1.3,
         ylab = expression('Ln (Bark absorption rate'~(mu*L~m^-2~day^-1)~')'),
         xlab = ' ', xlim = c(0.5, 4.5))
-axis(1, at=c(1, 2, 3, 4), labels=c('Summer-18', 'Autumn-18', 'Winter-19', 'Summer-19'))
+axis(1, at=c(1, 2, 3, 4), labels=c('Summer-18', 'Autumn-18', 'Winter-19', 'Summer-19'), cex.lab = 1.5)
 legend('topleft', legend = expression(bold('(a)'~~italic(P.~sylvestris))), bty = 'n')
 legend('bottomright', legend = c('Sweden', 'Spain'), pch = 15, bty = 'n',
        col = c('darkolivegreen', 'green3'))
 
 par(mar = c(6, 0, 2, 2))
-boxplot(log(inf_rate) ~ siteCamp, data = subset(xylem, Species == 'Fagus sylvatica'),
-        col = 'gold1', outline = FALSE, xaxt = 'n', ylim = c(2.5, 8), cex.lab = 1.3,
+boxplot(log(inf_rate_mmol) ~ siteCamp, data = subset(xylem, Species == 'Fagus sylvatica'),
+        col = 'gold1', outline = FALSE, xaxt = 'n', ylim = c(0, 5), cex.lab = 1.3,
         ylab = ' ', xlab = ' ', axes = F, xlim = c(0.2, 1.8))
 box()
 axis(1, at=c(1), labels=c('Summer-19'))
