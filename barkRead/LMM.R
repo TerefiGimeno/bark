@@ -6,7 +6,10 @@ barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign
                                          rwc = mean(RWC, na.rm = T)))
 barkID$Site <- as.factor(ifelse(barkID$Campaign == 'Summer2018' | barkID$Campaign == 'Autumn2018',
                       'Sweden', 'Spain'))
-barkID$Segment2 <- relevel(barkID$Segment2, ref = 'control')
+barkID$Segment2 <- relevel(as.factor(barkID$Segment2), ref = 'control')
+
+mySumm <- as.data.frame(dplyr::summarise(dplyr::group_by(barkID, Tissue, Species),
+                                         RWC = mean(rwc, na.rm = T), RWC.se = s.err.na(rwc)))
 
 library(nlme)
 d2HlmeSpainFSxy <- lme(d2H ~ Segment2, random = ~1|Tree, na.action = na.exclude,
