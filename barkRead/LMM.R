@@ -6,12 +6,15 @@ barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign
                                          rwc = mean(RWC, na.rm = T)))
 barkID$Site <- as.factor(ifelse(barkID$Campaign == 'Summer2018' | barkID$Campaign == 'Autumn2018',
                       'Sweden', 'Spain'))
-barkID$Segment2 <- relevel(as.factor(barkID$Segment2), ref = 'control')
+barkID$Segment2 <- relevel(as.factor(barkID$Segment2), ref = 'after')
 
 mySumm <- as.data.frame(dplyr::summarise(dplyr::group_by(barkID, Tissue, Species),
                                          RWC = mean(rwc, na.rm = T), RWC.se = s.err.na(rwc)))
 
 library(nlme)
+d2HlmSwPSxy <- lm(d2H ~ Campaign * Segment2,
+                  data = subset(barkID, Tissue == 'xylem' & Site == 'Sweden'))
+
 d2HlmeSpainFSxy <- lme(d2H ~ Segment2, random = ~1|Tree, na.action = na.exclude,
                      data = subset(barkID, Tissue == 'xylem' & Species == 'Fagus sylvatica'))
 d18OlmeSpainFSxy <- lme(d18O ~ Segment2, random = ~1|Tree, na.action = na.exclude,
@@ -22,8 +25,7 @@ d2HlmeSpainPSxy <- lme(d2H ~ Campaign + Segment2 + Campaign:Segment2, random = ~
 d18OlmeSpainPSxy <- lme(d18O ~ Campaign + Segment2 + Campaign:Segment2, random = ~1|Tree,
                      na.action = na.exclude, data = subset(barkID, Tissue == 'xylem'& Site == 'Spain'
                                                            & Species == 'Pinus sylvestris'))
-d2HlmSwPSxy <- lm(d2H ~ Campaign * Segment2,
-                data = subset(barkID, Tissue == 'xylem' & Site == 'Sweden'))
+
 d18OlmSwPSxy <- lm(d18O ~ Campaign * Segment2,
                 data = subset(barkID, Tissue == 'xylem' & Site == 'Sweden'))
 d2HlmSpainPSleaf <- lm(d2H ~ Campaign * Segment2,
@@ -56,7 +58,9 @@ d18OlmSwPSbark <- lm(d18O ~ Campaign * Segment2,
                      data = subset(barkID, Tissue == 'bark' & Site == 'Sweden'))
 
 
-barkSumm <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign, Tissue, Segment2),
-                                         d2H = mean(d2H, na.rm = T), d18O = mean(d18O, na.rm = T)))
-
+barkSumm <- as.data.frame(dplyr::summarise(dplyr::group_by(barkID, Species, Campaign, Tissue, Segment2),
+                                         d2H_mean = mean(d2H, na.rm = T), d2H_se = s.err.na(d2H),
+                                         d18O_mean = mean(d18O, na.rm = T), d18O_se = s.err.na(d18O),
+                                         N_is = lengthWithoutNA(d18O)))
+write.csv(barkSumm, file = 'barkOutput/barkSumm.csv', row.names = F)
 
