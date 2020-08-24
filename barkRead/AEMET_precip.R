@@ -15,7 +15,7 @@ rain <- read.csv('temp.csv')
 rain <- subset(rain, year >= 1949)
 stations <- read.csv('barkData/AEMET/estacionesT.csv')
 rain <- left_join(rain, stations[,c('INDICATIVO', 'NOMBRE')], by = 'INDICATIVO')
-rain[which(rain$P_10mm <= -3), 'P_10mm'] <- 0
+rain[which(rain$P_10mm == -3), 'P_10mm'] <- 0
 rainMonth <- summarise(group_by(rain, NOMBRE, year, month),
                        Pmonth = sum(P_10mm*0.1, na.rm = T), Pndays = lengthNA(P_10mm))
 rainMonth[which(rainMonth$Pndays <= 24), 'Pmonth'] <- NA
