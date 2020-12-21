@@ -4,7 +4,7 @@ barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign
                                                          id, Tissue, Segment2),
                                          d2H = mean(d2H, na.rm = T), d18O = mean(d18O, na.rm = T),
                                          rwc = mean(RWC, na.rm = T)))
-barkID$Site <- as.factor(ifelse(barkID$Campaign == 'Summer2018' | barkID$Campaign == 'Autumn2018',
+barkID$Site <- as.factor(ifelse(barkID$Campaign == 'Summer-18' | barkID$Campaign == 'Autumn-18',
                       'Sweden', 'Spain'))
 barkID$Segment2 <- as.factor(barkID$Segment2)
 barkID$Segment2 <- factor(barkID$Segment2, levels(barkID$Segment2)[c(3,2,1)])
