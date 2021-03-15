@@ -40,7 +40,7 @@ xylem <- merge(xylemBef, xylemAft, by = c('Campaign', 'Tree', 'Species', 'id'), 
 xylem <- merge(xylem, segments[, c('Species', 'Campaign', 'Tree', 'id',
                                    'nday_bandage', 'surface', 'xylVol')],
                by = c('Species', 'Campaign', 'Tree', 'id'), all.x = T, all.y = F)
-xylem$Site <- ifelse(xylem$Campaign == 'Autumn2018' | xylem$Campaign == 'Summer2018',
+xylem$Site <- ifelse(xylem$Campaign == 'Autumn-18' | xylem$Campaign == 'Summer2018',
                      'Sweden', 'Spain')
 xylem$ppm_2H_label <- ifelse(xylem$Site == 'Sweden', ppm_2H_label_Sweden, ppm_2H_label_Spain)
 xylem$ppm_2H_before <- calc_ratio_ppm(xylem$d2H_bef, VSMOW_2R)
@@ -52,7 +52,7 @@ xylem$inf_rate_uL <- xylem$vol_contrib_uL/(xylem$surface * 0.0001 * xylem$nday_b
 xylem$inf_rate_mmol <- xylem$vol_contrib_mmol/(xylem$surface * 0.0001 * xylem$nday_bandage)
 xylem$siteCamp <- as.factor(paste0(xylem$Site, '-', xylem$Campaign))
 
-summary(lm(log(inf_rate_mmol) ~ Species, data = subset(xylem, Campaign == 'Summer2019')))
+summary(lm(log(inf_rate_mmol) ~ Species, data = subset(xylem, Campaign == 'Summer-19')))
 summary(lm(log(inf_rate_mmol) ~ Site, data = subset(xylem, Species == 'Pinus sylvestris')))
 # summary(lm(log(inf_rate) ~ Site,
 #           data = subset(xylem, Campaign == 'Summer2018' | Campaign == 'Summer2019')))

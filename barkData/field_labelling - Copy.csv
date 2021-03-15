@@ -60,20 +60,20 @@ CollectionDate,DateBandageApplied,Species,Site,Campaign,Tree,Branch,id,Height_m,
 20180917,20180903,Pinus sylvestris,Rosinedal,Autumn-18,Tree3,one,Tree3_one,16,xylem,NA,NA,NA,-74.78858012,-9.870234812,control,control,20181109,0.138106193,20181113,LGR & Cryogenic distillation,control. Flagged methanol and ethanol.
 20180917,20180903,Pinus sylvestris,Rosinedal,Autumn-18,Tree4,one,Tree4_one,16,xylem,NA,NA,NA,-69.59818585,-8.626034337,control,control,20181109,0.114491709,20181113,LGR & Cryogenic distillation,control. Flagged methanol and ethanol.
 20180917,20180903,Pinus sylvestris,Rosinedal,Autumn-18,Tree5,one,Tree5_one,16,xylem,NA,NA,NA,NA,NA,control,control,20181109,0.106786664,NA,LGR & Cryogenic distillation,control
-20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree4,17-102Ch,17-102Ch,16,bark,0.25,9.65,NA,NA,NA,after,after,20180823,0.029731893,NA,LGR & Cryogenic distillation,NA
+20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree3,17-102Ch,17-102Ch,16,bark,0.25,9.65,NA,NA,NA,after,after,20180823,0.029731893,NA,LGR & Cryogenic distillation,NA
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree2,17-103Ch,17-103Ch,16,bark,0.75,9.9,NA,NA,NA,after,after,20180823,0.059386301,NA,LGR & Cryogenic distillation,NA
 20180724,20180720,Pinus sylvestris,Rosinedal,Summer-18,Tree2,17-103Nch,17-103Nch,16,bark,0.85,13.35,NA,142.5798259,-10.52939512,after,after,20180823,0.058814681,20190823,LGR & Cryogenic distillation,NA
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Ch,17-104Ch,16,bark,0.4,8.3,NA,-82.30223751,-11.51480433,after,after,20180823,0.048933217,20190823,LGR & Cryogenic distillation,chamber measurements
 20180724,20180720,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Nch,17-104Nch,16,bark,0.7,12.75,NA,NA,NA,after,after,20180823,0.055528159,NA,LGR & Cryogenic distillation,NA
-20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree4,17-102Ch,17-102Ch,16,bark,0.25,9.65,NA,-101.7828172,-10.95625157,before,before,20180823,0.065111914,20190823,LGR & Cryogenic distillation,chamber measurements
+20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree3,17-102Ch,17-102Ch,16,bark,0.25,9.65,NA,-101.7828172,-10.95625157,before,before,20180823,0.065111914,20190823,LGR & Cryogenic distillation,chamber measurements
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree2,17-103Ch,17-103Ch,16,bark,0.75,9.9,NA,-105.2297419,-11.97619099,before,before,20180823,0.040151808,20190823,LGR & Cryogenic distillation,chamber measurements
 20180724,20180720,Pinus sylvestris,Rosinedal,Summer-18,Tree2,17-103Nch,17-103Nch,16,bark,0.85,13.35,NA,-107.3580727,-12.21663013,before,before,20180823,0.059922864,20190823,LGR & Cryogenic distillation,NA
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Ch,17-104Ch,16,bark,0.4,8.3,NA,-102.583947,-11.30245662,before,before,20180823,0.047657605,20190823,LGR & Cryogenic distillation,chamber measurements
 20180724,20180720,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Nch,17-104Nch,16,bark,0.7,12.75,NA,-101.4601119,-11.86876657,before,before,20180823,0.063680554,20190823,LGR & Cryogenic distillation,NA
-20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree4,17-102Ch,17-102Ch,16,leaf,0.25,9.65,NA,NA,NA,after,after,20180823,0.02040009,NA,LGR & Cryogenic distillation,NA
+20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree3,17-102Ch,17-102Ch,16,leaf,0.25,9.65,NA,NA,NA,after,after,20180823,0.02040009,NA,LGR & Cryogenic distillation,NA
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree2,17-103Ch,17-103Ch,16,leaf,0.75,9.9,NA,11.24488305,2.291660304,after,after,20180823,0.027223603,20190823,LGR & Cryogenic distillation,chamber measurements
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Ch,17-104Ch,16,leaf,0.4,8.3,NA,74.84120238,2.028717107,after,after,20180823,0.029615558,20190823,LGR & Cryogenic distillation,chamber measurements
-20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree4,17-102Ch,17-102Ch,16,leaf,0.25,9.65,NA,NA,NA,before,before,20180823,0.025757978,NA,LGR & Cryogenic distillation,NA
+20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree3,17-102Ch,17-102Ch,16,leaf,0.25,9.65,NA,NA,NA,before,before,20180823,0.025757978,NA,LGR & Cryogenic distillation,NA
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree2,17-103Ch,17-103Ch,16,leaf,0.75,9.9,NA,NA,NA,before,before,20180823,0.098783791,NA,LGR & Cryogenic distillation,NA
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Ch,17-104Ch,16,leaf,0.4,8.3,NA,-56.16369383,2.951074159,before,before,20180823,NA,20190823,LGR & Cryogenic distillation,chamber measurements
 20180725,20180724,Pinus sylvestris,Rosinedal,Summer-18,Tree1,one,Tree1_extra,16,leaf,0.8,11,NA,NA,NA,before,before,20180822,0.040083152,NA,LGR & Cryogenic distillation,NA
@@ -82,16 +82,16 @@ CollectionDate,DateBandageApplied,Species,Site,Campaign,Tree,Branch,id,Height_m,
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Ch,17-104Ch,16,xylem,0.4,8.3,NA,149.3978507,-9.892106364,after,after,20180822,0.036548593,20190823,LGR & Cryogenic distillation,chamber measurements
 20180720,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104first,17-104-first,16,xylem,NA,NA,NA,274.9079999,-10.20965143,after,after,20180823,0.035229055,20190823,LGR & Cryogenic distillation,NA
 20180724,20180720,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Nch,17-104Nch,16,xylem,0.7,12.75,NA,NA,NA,after,after,20180823,0.062625779,NA,LGR & Cryogenic distillation,NA
-20180720,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree4,Simone4,Simone4,16,xylem,NA,NA,NA,205.5487497,-10.40546465,after,after,20180822,0.104610394,20190823,LGR & Cryogenic distillation,NA
+20180720,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree3,Simone4,Simone4,16,xylem,NA,NA,NA,205.5487497,-10.40546465,after,after,20180822,0.104610394,20190823,LGR & Cryogenic distillation,NA
 20180725,20180724,Pinus sylvestris,Rosinedal,Summer-18,Tree1,one,Tree1_extra,16,xylem,0.8,11,NA,-33.11573353,-12.89291051,after,after,20180822,0.121719756,20190823,LGR & Cryogenic distillation,NA
 20180725,20180724,Pinus sylvestris,Rosinedal,Summer-18,Tree2,one,Tree2_extra,16,xylem,0.7,7.6,NA,-34.60473227,-13.81777607,after,after,20180822,0.129705882,20190823,LGR & Cryogenic distillation,NA
-20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree4,17-102Ch,17-102Ch,16,xylem,0.25,9.65,NA,-97.35911369,-11.1155953,before,before,20180822,0.14684573,20190823,LGR & Cryogenic distillation,chamber measurements
+20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree3,17-102Ch,17-102Ch,16,xylem,0.25,9.65,NA,-97.35911369,-11.1155953,before,before,20180822,0.14684573,20190823,LGR & Cryogenic distillation,chamber measurements
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree2,17-103Ch,17-103Ch,16,xylem,0.75,9.9,NA,-102.8128506,-12.4554105,before,before,20180822,NA,20190823,LGR & Cryogenic distillation,chamber measurements
 20180724,20180720,Pinus sylvestris,Rosinedal,Summer-18,Tree2,17-103Nch,17-103Nch,16,xylem,0.85,13.35,NA,-104.1592576,-12.22768807,before,before,20180822,0.144784831,20190823,LGR & Cryogenic distillation,NA
 20180724,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Ch,17-104Ch,16,xylem,0.4,8.3,NA,-98.72233276,-12.10684093,before,before,20180822,0.112786723,20190823,LGR & Cryogenic distillation,chamber measurements
 20180720,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104first,17-104-first,16,xylem,NA,NA,NA,-98.32950149,-11.86091542,before,before,20180822,0.106803696,20190823,LGR & Cryogenic distillation,NA
 20180724,20180720,Pinus sylvestris,Rosinedal,Summer-18,Tree1,17-104Nch,17-104Nch,16,xylem,0.7,12.75,NA,-104.9498966,-12.34604401,before,before,20180822,0.108935119,20190823,LGR & Cryogenic distillation,NA
-20180720,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree4,Simone4,Simone4,16,xylem,NA,NA,NA,-94.80295291,-11.62125945,before,before,20180822,0.116025456,20190823,LGR & Cryogenic distillation,NA
+20180720,20180719,Pinus sylvestris,Rosinedal,Summer-18,Tree3,Simone4,Simone4,16,xylem,NA,NA,NA,-94.80295291,-11.62125945,before,before,20180822,0.116025456,20190823,LGR & Cryogenic distillation,NA
 20180725,20180724,Pinus sylvestris,Rosinedal,Summer-18,Tree1,one,Tree1_extra,16,xylem,0.8,11,NA,-99.49256147,-12.05250953,before,before,20180822,0.127302141,20190823,LGR & Cryogenic distillation,NA
 20180725,20180724,Pinus sylvestris,Rosinedal,Summer-18,Tree2,one,Tree2_extra,16,xylem,0.7,7.6,NA,-99.92195439,-12.71644634,before,before,20180822,0.136069992,20190823,LGR & Cryogenic distillation,NA
 20190705,20190704,Pinus sylvestris,Monte Santiago,Summer-19,1,1,11,7.8,bark,1.33,10.12,27,135.8734735,-5.595456329,after,after,20191009,0.133960831,20191216,LGR & Cryogenic distillation,flagged methanol and ethanol

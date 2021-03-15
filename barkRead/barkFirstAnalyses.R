@@ -1,20 +1,20 @@
 source('barkRead/basicFunTEG.R')
 bark <- read.csv('barkData/field_labelling.csv')
-barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaing, Tree,
+barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign, Tree,
                                                          id, Tissue, Segment2),
                                          d2H = mean(d2H, na.rm = T), d18O = mean(d18O, na.rm = T),
                                          rwc = mean(RWC, na.rm = T)))
 xylemCont <- subset(barkID, Tissue == 'xylem' &
-                      Segment2 == 'control')[, c('Campaing', 'Tree', 'Species', 'd2H', 'd18O')]
+                      Segment2 == 'control')[, c('Campaign', 'Tree', 'Species', 'd2H', 'd18O')]
 names(xylemCont)[(ncol(xylemCont)-1):ncol(xylemCont)] <- c('d2H_cont', 'd18O_cont')
 xylemBef <- subset(barkID, Tissue == 'xylem' &
-                     Segment2 == 'before')[,c('Campaing', 'Tree', 'id', 'd2H', 'd18O')]
+                     Segment2 == 'before')[,c('Campaign', 'Tree', 'id', 'd2H', 'd18O')]
 names(xylemBef)[(ncol(xylemBef)-1):ncol(xylemBef)] <- c('d2H_bef', 'd18O_bef')
 xylemAft <- subset(barkID, Tissue == 'xylem' &
-                     Segment2 == 'after')[,c('Campaing', 'Tree', 'id', 'd2H', 'd18O')]
+                     Segment2 == 'after')[,c('Campaign', 'Tree', 'id', 'd2H', 'd18O')]
 names(xylemAft)[(ncol(xylemAft)-1):ncol(xylemAft)] <- c('d2H_aft', 'd18O_aft')
-xylem <- merge(xylemBef, xylemAft, by = c('Campaing', 'Tree', 'id'), all = T)
-xylem <- merge(xylem, xylemCont, by = c('Campaing', 'Tree'), all = T)
+xylem <- merge(xylemBef, xylemAft, by = c('Campaign', 'Tree', 'id'), all = T)
+xylem <- merge(xylem, xylemCont, by = c('Campaign', 'Tree'), all = T)
 # xylem$d2H_bef_alt <- ifelse(is.na(xylem$d2H_bef), xylem$d2H_cont, xylem$d2H_bef)
 # xylem$d18O_bef_alt <- ifelse(is.na(xylem$d18O_bef), xylem$d18O_cont, xylem$d18O_bef)
 xylem$dif_d2H_cont.bef <- xylem$d2H_cont - xylem$d2H_bef
@@ -25,35 +25,35 @@ xylem$dif_d2H_aft.bef <- xylem$d2H_aft - xylem$d2H_bef
 xylem$dif_d18O_aft.bef <- xylem$d18O_aft - xylem$d18O_bef
 
 
-summer18 <- subset(xylem, Campaing == 'Summer2018')
+summer18 <- subset(xylem, Campaign == 'Summer-18')
 t.test(summer18$dif_d18O_aft.bef, alternative = 'two.sided', mu = 0)
 t.test(summer18$dif_d2H_aft.bef, alternative = 'two.sided', mu = 0)
 
-autumn18 <- subset(xylem, Campaing == 'Autumn2018')
+autumn18 <- subset(xylem, Campaign == 'Autumn-18')
 t.test(autumn18$dif_d18O_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(autumn18$dif_d2H_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(autumn18$dif_d18O_aft.bef, alternative = 'two.sided', mu = 0)
 t.test(autumn18$dif_d2H_aft.bef, alternative = 'two.sided', mu = 0)
 
-winter19 <- subset(xylem, Campaing == 'Winter2019')
+winter19 <- subset(xylem, Campaign == 'Winter-19')
 t.test(winter19$dif_d18O_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(winter19$dif_d2H_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(winter19$dif_d18O_aft.bef, alternative = 'two.sided', mu = 0)
 t.test(winter19$dif_d2H_aft.bef, alternative = 'two.sided', mu = 0)
 
-summer19_Ps <- subset(xylem, Campaing == 'Summer2019' & Species == 'Pinus sylvestris')
+summer19_Ps <- subset(xylem, Campaign == 'Summer-19' & Species == 'Pinus sylvestris')
 t.test(summer19_Ps$dif_d18O_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(summer19_Ps$dif_d2H_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(summer19_Ps$dif_d18O_aft.bef, alternative = 'two.sided', mu = 0)
 t.test(summer19_Ps$dif_d2H_aft.bef, alternative = 'two.sided', mu = 0)
 
-summer19_Fs <- subset(xylem, Campaing == 'Summer2019' & Species == 'Fagus sylvatica')
+summer19_Fs <- subset(xylem, Campaign == 'Summer-19' & Species == 'Fagus sylvatica')
 t.test(summer19_Fs$dif_d18O_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(summer19_Fs$dif_d2H_cont.bef, alternative = 'two.sided', mu = 0)
 t.test(summer19_Fs$dif_d18O_aft.bef, alternative = 'two.sided', mu = 0)
 t.test(summer19_Fs$dif_d2H_aft.bef, alternative = 'two.sided', mu = 0)
 
-xylemTreeSumm <- dplyr::summarise(dplyr::group_by(xylem, Campaing, Tree),
+xylemTreeSumm <- dplyr::summarise(dplyr::group_by(xylem, Campaign, Tree),
                              d2Hcont = mean(d2H_cont), d18Ocont = mean(d18O_cont),
                              d2Hbef = mean(d2H_bef, na.rm = T), d18Obef = mean(d18O_bef, na.rm = T),
                              d2Haft = mean(d2H_aft, na.rm = T), d18Oaft = mean(d18O_aft, na.rm = T))
@@ -61,7 +61,7 @@ xylemTreeSumm$Species <- rep('Ps', nrow(xylemTreeSumm))
 xylemTreeSumm[which(xylemTreeSumm$Tree == 7 | xylemTreeSumm$Tree == 8 |
                       xylemTreeSumm$Tree == 9 | xylemTreeSumm$Tree == 10 |
                       xylemTreeSumm$Tree == 11), 'Species'] <- 'Fs'
-xylemSumm <- dplyr::summarise(dplyr::group_by(xylemTreeSumm, Campaing, Species),
+xylemSumm <- dplyr::summarise(dplyr::group_by(xylemTreeSumm, Campaign, Species),
                               d2H_cont = mean(d2Hcont, na.rm = T), d2H_cont_se = s.err.na(d2Hcont),
                               d18O_cont = mean(d18Ocont, na.rm = T), d18O_cont_se = s.err.na(d18Ocont),
                               d2H_bef = mean(d2Hbef, na.rm = T), d2H_bef_se = s.err.na(d2Hbef),

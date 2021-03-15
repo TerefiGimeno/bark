@@ -1,4 +1,8 @@
-source('barkRead/basicFunTEG.R')
+s.err.na <- function(x){sd(x, na.rm = TRUE)/sqrt(lengthWithoutNA(x))}
+lengthWithoutNA <- function(x){
+  l <- length(which(!is.na(x)))
+  return(l)
+}
 library(ggplot2)
 bark <- read.csv('barkData/field_labelling.csv')
 barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign, Tree,
@@ -75,7 +79,7 @@ myPlots[[3]] <-
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
   ylim(-105, 200)+
-  labs(title = expression(bold('  (b)')~italic('Pinus sylvestris')), x='', y = expression(delta^2*H~('\u2030')))+
+  labs(title = expression(bold('  (c)')~italic('Pinus sylvestris')), x='', y = expression(delta^2*H~('\u2030')))+
   theme(plot.title = element_text(margin = margin(t = 10, b = -20)))+
   theme(axis.text = element_text(size = rel(1.3))) +
   theme(axis.title.y = element_text(size = rel(1.85))) +

@@ -18,6 +18,9 @@ barkSumm <- as.data.frame(dplyr::summarise(dplyr::group_by(barkID, Species, Camp
                                          N_is = lengthWithoutNA(d18O)))
 write.csv(barkSumm, file = 'barkOutput/barkSumm.csv', row.names = F)
 
+barkSumm2 <- as.data.frame(dplyr::summarise(dplyr::group_by(subset(barkID, Tissue == 'xylem'),
+                                                           Species, Campaign),
+                                           d18O_mean = mean(d18O, na.rm = T), d18O_sd = sd(d18O, na.rm =T)))
 
 library(nlme)
 lmmL <- list()
