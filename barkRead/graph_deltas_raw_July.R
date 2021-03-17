@@ -1,30 +1,7 @@
 library(lubridate)
 library(data.table)
-library(ggplot2)
 
-dfJ <- read.table('barkData/July24_complete.csv', sep = ';', header = TRUE)
-dfJ$DT <- as.POSIXct(dfJ$DT, format="%Y-%m-%d %H:%M:%S")
-wiJ <- read.csv("barkData/July24_xylem_wi.csv")
-dfJ <- dplyr::left_join(dfJ, wiJ, by = 'MpNo')
-dfJ$band_surface_m2 <- dfJ$diam_cm * pi * dfJ$length_cm/10000
-# estimated needle area per branch given a certain branch diameter
-# equation according to Cermak et al. 1998 Ann For Sci
-# y = 0.003*x^2 - 0.008*x
-# y is needle area in m2 and x is branch sectional area in m2 (mm2???)
-dfJ$cross_section_area_mm2 <- pi*(dfJ$diam_cm*10*0.5)^2
-dfJ$needle_area_m2 <- 0.003*dfJ$cross_section_area_mm2^2 - 0.08*dfJ$cross_section_area_mm2
-# calculate branch transpiration rate
-dfJ$E_branch <- dfJ$TrA * dfJ$needle_area_m2
-dfJ$time <- yday(dfJ$DT) + (hour(dfJ$DT)+ minute(dfJ$DT)/60)/24
-dfJ$DOY <- yday(dfJ$DT)
-# calculate deltas (d18O and d2H) of transpired water (d_E), according to:
-dfJ$d18O_E <- (dfJ$FlowOut*dfJ$H2Oout_G*dfJ$d18O_out*0.001 - dfJ$FlowIn*dfJ$H2Oin_G*dfJ$d18O_in*0.001)*1000/
-  (dfJ$FlowOut*dfJ$H2Oout_G - dfJ$FlowIn*dfJ$H2Oin_G)
-dfJ$ss <- ifelse(dfJ$d18O_E >= dfJ$d18_lw_lim & dfJ$d18O_E <= dfJ$d18_up_lim, 'yes', 'no')
-
-dfJ$d2H_E <- (dfJ$FlowOut*dfJ$H2Oout_G*dfJ$dDH_out*0.001 - dfJ$FlowIn*dfJ$H2Oin_G*dfJ$dDH_in*0.001)*1000/
-  (dfJ$FlowOut*dfJ$H2Oout_G - dfJ$FlowIn*dfJ$H2Oin_G)
-
+source('barkRead/read_calcs_online_WI.R')
 myMpNo <- unique(dfJ$MpNo)
 
 windows(12, 12)
@@ -39,7 +16,6 @@ points(subset(dfJ, MpNo == myMpNo[1] & ss == 'yes')$d18O_E ~ subset(dfJ, MpNo ==
 abline(subset(dfJ, MpNo == myMpNo[1])$d18O_b[1], 0, lty = 2)
 abline(subset(dfJ, MpNo == myMpNo[1])$d18O_a[1], 0, lty = 3)
 abline(subset(dfJ, MpNo == myMpNo[1])$d18_up_lim[1], 0)
-abline(subset(dfJ, MpNo == myMpNo[1])$d18_lw_lim[1], 0)
 axis(side = 2, at = seq(-20, 20, 10), labels = seq(-20, 20, 10))
 axis(side = 1, at = seq(min(subset(dfJ, MpNo == myMpNo[1])$DT), max(subset(dfJ, MpNo == myMpNo[1])$DT), 'hour'),
      labels = F)
@@ -60,7 +36,6 @@ points(subset(dfJ, MpNo == myMpNo[2] & ss == 'yes')$d18O_E ~ subset(dfJ, MpNo ==
 abline(subset(dfJ, MpNo == myMpNo[2])$d18O_b[1], 0, lty = 2)
 abline(subset(dfJ, MpNo == myMpNo[2])$d18O_a[1], 0, lty = 3)
 abline(subset(dfJ, MpNo == myMpNo[2])$d18_up_lim[1], 0)
-abline(subset(dfJ, MpNo == myMpNo[2])$d18_lw_lim[1], 0)
 axis(side = 2, at = seq(-20, 30, 10), labels = seq(-20, 30, 10))
 axis(side = 1, at = seq(min(subset(dfJ, MpNo == myMpNo[2])$DT), max(subset(dfJ, MpNo == myMpNo[2])$DT), 'hour'),
      labels = F)

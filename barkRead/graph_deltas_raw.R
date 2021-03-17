@@ -1,6 +1,4 @@
 library(lubridate)
-library(data.table)
-library(ggplot2)
 
 dfS <- read.table('barkData/Sept_complete.csv', sep = ';', header = TRUE)
 dfS$DT <- as.POSIXct(dfS$DT, format="%Y-%m-%d %H:%M:%S")
@@ -16,11 +14,14 @@ dfS$needle_area_m2 <- 0.003*dfS$cross_section_area_mm2^2 - 0.08*dfS$cross_sectio
 # calculate branch transpiration rate
 dfS$E_branch <- dfS$TrA * dfS$needle_area_m2
 dfS$time <- yday(dfS$DT) + (hour(dfS$DT)+ minute(dfS$DT)/60)/24
+dfS$timeDec <- hour(dfS$DT)+ (minute(dfS$DT)/60)
 dfS$DOY <- yday(dfS$DT)
 # calculate deltas (d18O and d2H) of transpired water (d_E), according to:
 dfS$d18O_E <- (dfS$FlowOut*dfS$H2Oout_G*dfS$d18O_out*0.001 - dfS$FlowIn*dfS$H2Oin_G*dfS$d18O_in*0.001)*1000/
   (dfS$FlowOut*dfS$H2Oout_G - dfS$FlowIn*dfS$H2Oin_G)
-dfS$ss <- ifelse(dfS$d18O_E >= dfS$d18_lw_lim & dfS$d18O_E <= dfS$d18_up_lim, 'yes', 'no')
+dfS$ss <- ifelse(dfS$d18O_E <= dfS$d18_up_lim & dfS$PAR >= 100 &
+                   dfS$timeDec >= 10 & dfS$timeDec < 18 &
+                   dfS$DOY >= 247, 'yes', 'no')
 
 dfS$d2H_E <- (dfS$FlowOut*dfS$H2Oout_G*dfS$dDH_out*0.001 - dfS$FlowIn*dfS$H2Oin_G*dfS$dDH_in*0.001)*1000/
   (dfS$FlowOut*dfS$H2Oout_G - dfS$FlowIn*dfS$H2Oin_G)
@@ -34,12 +35,9 @@ plot(subset(dfS, MpNo == myMpNo[1])$d18O_in ~ subset(dfS, MpNo == myMpNo[1])$DT,
      ylab = expression(paste(delta^{18}, "O (\u2030)")), xlab = '', cex.lab = 1.6)
 points(subset(dfS, MpNo == myMpNo[1])$d18O_out ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[1])$d18O_E ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'black')
-points(subset(dfS, MpNo == myMpNo[1] & ss == 'yes')$d18O_E ~ subset(dfS, MpNo == myMpNo[1] & ss == 'yes')$DT,
-       pch =19, col = 'green')
 abline(subset(dfS, MpNo == myMpNo[1])$d18O_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[1])$d18O_a[1], 0, lty = 3)
 abline(subset(dfS, MpNo == myMpNo[1])$d18_up_lim[1], 0)
-abline(subset(dfS, MpNo == myMpNo[1])$d18_lw_lim[1], 0)
 axis(side = 2, at = seq(-20, 30, 10), labels = seq(-20, 30, 10))
 axis(side = 1, at = seq(min(subset(dfS, MpNo == myMpNo[1])$DT), max(subset(dfS, MpNo == myMpNo[1])$DT), 'day'),
      labels = F)
@@ -52,12 +50,9 @@ plot(subset(dfS, MpNo == myMpNo[2])$d18O_in ~ subset(dfS, MpNo == myMpNo[2])$DT,
      ylab = '', xlab = '', main = 'Cuvette 2')
 points(subset(dfS, MpNo == myMpNo[2])$d18O_out ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[2])$d18O_E ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'black')
-points(subset(dfS, MpNo == myMpNo[2] & ss == 'yes')$d18O_E ~ subset(dfS, MpNo == myMpNo[2] & ss == 'yes')$DT,
-       pch =19, col = 'green')
 abline(subset(dfS, MpNo == myMpNo[2])$d18O_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[2])$d18O_a[1], 0, lty = 3)
 abline(subset(dfS, MpNo == myMpNo[2])$d18_up_lim[1], 0)
-abline(subset(dfS, MpNo == myMpNo[2])$d18_lw_lim[1], 0)
 axis(side = 2, at = seq(-20, 30, 10), labels = seq(-20, 30, 10))
 axis(side = 1, at = seq(min(subset(dfS, MpNo == myMpNo[2])$DT), max(subset(dfS, MpNo == myMpNo[2])$DT), 'day'),
      labels = F)
@@ -70,12 +65,9 @@ plot(subset(dfS, MpNo == myMpNo[3])$d18O_in ~ subset(dfS, MpNo == myMpNo[3])$DT,
      ylab = '', xlab = '', main = 'Cuvette 7')
 points(subset(dfS, MpNo == myMpNo[3])$d18O_out ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[3])$d18O_E ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'black')
-points(subset(dfS, MpNo == myMpNo[3] & ss == 'yes')$d18O_E ~ subset(dfS, MpNo == myMpNo[3] & ss == 'yes')$DT,
-       pch =19, col = 'green')
 abline(subset(dfS, MpNo == myMpNo[3])$d18O_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[3])$d18O_a[1], 0, lty = 3)
 abline(subset(dfS, MpNo == myMpNo[3])$d18_up_lim[1], 0)
-abline(subset(dfS, MpNo == myMpNo[3])$d18_lw_lim[1], 0)
 axis(side = 2, at = seq(-20, 30, 10), seq(-20, 30, 10))
 axis(side = 1, at = seq(min(subset(dfS, MpNo == myMpNo[3])$DT), max(subset(dfS, MpNo == myMpNo[3])$DT), 'day'),
      labels = F)
@@ -91,21 +83,18 @@ plot(subset(dfS, MpNo == myMpNo[4])$d18O_in ~ subset(dfS, MpNo == myMpNo[4])$DT,
      ylab = '', xlab = '', main = 'Cuvette 8')
 points(subset(dfS, MpNo == myMpNo[4])$d18O_out ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[4])$d18O_E ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'black')
-points(subset(dfS, MpNo == myMpNo[4] & ss == 'yes')$d18O_E ~ subset(dfS, MpNo == myMpNo[4] & ss == 'yes')$DT,
-       pch =19, col = 'green')
 abline(subset(dfS, MpNo == myMpNo[4])$d18O_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[4])$d18O_a[1], 0, lty = 3)
 abline(subset(dfS, MpNo == myMpNo[4])$d18_up_lim[1], 0)
-abline(subset(dfS, MpNo == myMpNo[4])$d18_lw_lim[1], 0)
 axis(side = 2, at = seq(-20, 30, 10), labels = seq(-20, 30, 10))
 axis(side = 1, at = seq(min(subset(dfS, MpNo == myMpNo[4])$DT), max(subset(dfS, MpNo == myMpNo[4])$DT), 'day'),
      labels = F)
 box()
 legend('topleft', expression(bold((d))), bty = 'n', cex = 1.2, pt.cex = 1)
 
-legend('topright', pch = rep(19, 4), legend = c(expression(delta['in']), expression(delta[out]),
-                              expression(delta[italic(E)]), expression(delta[italic(E-ss)])), 
-       col = c('blue', 'red', 'black', 'green'), bty = 'n', cex = 1.3, pt.cex = 1)
+legend('topright', pch = rep(19, 3), legend = c(expression(delta['in']), expression(delta[out]),
+                              expression(delta[italic(E)])), 
+       col = c('blue', 'red', 'black'), bty = 'n', cex = 1.3, pt.cex = 1)
 
 par(mar = c(2, 5, 2, 0))
 plot(subset(dfS, MpNo == myMpNo[1])$dDH_in ~ subset(dfS, MpNo == myMpNo[1])$DT,
@@ -113,8 +102,6 @@ plot(subset(dfS, MpNo == myMpNo[1])$dDH_in ~ subset(dfS, MpNo == myMpNo[1])$DT,
      ylab = expression(paste(delta^{2}, "H (\u2030)")), xlab = '', cex.lab = 1.6)
 points(subset(dfS, MpNo == myMpNo[1])$dDH_out ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[1])$d2H_E ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'black')
-points(subset(dfS, MpNo == myMpNo[1] & ss == 'yes')$d2H_E ~ subset(dfS, MpNo == myMpNo[1] & ss == 'yes')$DT,
-       pch =19, col = 'green')
 abline(subset(dfS, MpNo == myMpNo[1])$d2H_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[1])$d2H_a[1], 0, lty = 3)
 axis(side = 2, at = seq(-200, 600, 200), labels = seq(-200, 600, 200))
@@ -129,8 +116,6 @@ plot(subset(dfS, MpNo == myMpNo[2])$dDH_in ~ subset(dfS, MpNo == myMpNo[2])$DT,
      ylab = '', xlab = '')
 points(subset(dfS, MpNo == myMpNo[2])$dDH_out ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[2])$d2H_E ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'black')
-points(subset(dfS, MpNo == myMpNo[2] & ss == 'yes')$d2H_E ~ subset(dfS, MpNo == myMpNo[2] & ss == 'yes')$DT,
-       pch =19, col = 'green')
 abline(subset(dfS, MpNo == myMpNo[2])$d2H_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[2])$d2H_a[1], 0, lty = 3)
 axis(side = 2, at = seq(-200, 600, 200), labels = seq(-200, 600, 200))
@@ -145,8 +130,6 @@ plot(subset(dfS, MpNo == myMpNo[3])$dDH_in ~ subset(dfS, MpNo == myMpNo[3])$DT,
      ylab = '', xlab = '')
 points(subset(dfS, MpNo == myMpNo[3])$dDH_out ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[3])$d2H_E ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'black')
-points(subset(dfS, MpNo == myMpNo[3] & ss == 'yes')$d2H_E ~ subset(dfS, MpNo == myMpNo[3] & ss == 'yes')$DT,
-       pch =19, col = 'green')
 abline(subset(dfS, MpNo == myMpNo[3])$d2H_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[3])$d2H_a[1], 0, lty = 3)
 axis(side = 2, at = seq(-200, 600, 200), labels = seq(-200, 600, 200))
@@ -161,8 +144,6 @@ plot(subset(dfS, MpNo == myMpNo[4])$dDH_in ~ subset(dfS, MpNo == myMpNo[4])$DT,
      ylab = '', xlab = '')
 points(subset(dfS, MpNo == myMpNo[4])$dDH_out ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[4])$d2H_E ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'black')
-points(subset(dfS, MpNo == myMpNo[4] & ss == 'yes')$d2H_E ~ subset(dfS, MpNo == myMpNo[4] & ss == 'yes')$DT,
-       pch =19, col = 'green')
 abline(subset(dfS, MpNo == myMpNo[4])$d2H_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[4])$d2H_a[1], 0, lty = 3)
 axis(side = 2, at = seq(-200, 600, 200), labels = seq(-200, 600, 200))
@@ -175,8 +156,6 @@ par(mar = c(4, 5, 0, 0))
 plot(subset(dfS, MpNo == myMpNo[1])$TrA ~ subset(dfS, MpNo == myMpNo[1])$DT,
      pch = 19, cex = 1.25, col = 'darkgreen', ylim = c(0, 2.25), cex.lab = 1.6,
      ylab = expression(italic(E)~(mmol~m^-2~s^-1)), xlab = '')
-points(subset(dfS, MpNo == myMpNo[1] & midday == 'yes')$TrA ~
-         subset(dfS, MpNo == myMpNo[1] & midday == 'yes')$DT, pch = 19, col = 'blue')
 lines(subset(dfS, MpNo == myMpNo[1])$TrA ~ subset(dfS, MpNo == myMpNo[1])$DT, col ='darkgreen')
 legend('topleft', expression(bold((i))), bty = 'n', cex = 1.2, pt.cex = 1)
 
@@ -184,8 +163,6 @@ par(mar = c(4, 5*2/3, 0, 5/3))
 plot(subset(dfS, MpNo == myMpNo[2])$TrA ~ subset(dfS, MpNo == myMpNo[2])$DT,
      pch = 19, cex = 1.25, col = 'darkgreen', ylim = c(0, 2.25), 
      ylab = '', xlab = '')
-points(subset(dfS, MpNo == myMpNo[2] & midday == 'yes')$TrA ~
-         subset(dfS, MpNo == myMpNo[2] & midday == 'yes')$DT, pch = 19, col = 'blue')
 lines(subset(dfS, MpNo == myMpNo[2])$TrA ~ subset(dfS, MpNo == myMpNo[2])$DT, col ='darkgreen')
 legend('topleft', expression(bold((j))), bty = 'n', cex = 1.2, pt.cex = 1)
 
@@ -193,8 +170,6 @@ par(mar = c(4, 5/3, 0, 5*2/3))
 plot(subset(dfS, MpNo == myMpNo[3])$TrA ~ subset(dfS, MpNo == myMpNo[3])$DT,
      pch = 19, cex = 1.25, col = 'darkgreen', ylim = c(0, 2.25), 
      ylab = '', xlab = '')
-points(subset(dfS, MpNo == myMpNo[3] & midday == 'yes')$TrA ~
-         subset(dfS, MpNo == myMpNo[3] & midday == 'yes')$DT, pch = 19, col = 'blue')
 lines(subset(dfS, MpNo == myMpNo[3])$TrA ~ subset(dfS, MpNo == myMpNo[3])$DT, col ='darkgreen')
 legend('topleft', expression(bold((k))), bty = 'n', cex = 1.2, pt.cex = 1)
 
@@ -202,8 +177,6 @@ par(mar = c(4, 0, 0, 5))
 plot(subset(dfS, MpNo == myMpNo[4])$TrA ~ subset(dfS, MpNo == myMpNo[4])$DT,
      pch = 19, cex = 1.25, col = 'darkgreen', ylim = c(0, 2.25), 
      ylab = '', xlab = '')
-points(subset(dfS, MpNo == myMpNo[4] & midday == 'yes')$TrA ~
-         subset(dfS, MpNo == myMpNo[4] & midday == 'yes')$DT, pch = 19, col = 'blue')
 lines(subset(dfS, MpNo == myMpNo[4])$TrA ~ subset(dfS, MpNo == myMpNo[4])$DT, col ='darkgreen')
 legend('topleft', expression(bold((l))), bty = 'n', cex = 1.2, pt.cex = 1)
 

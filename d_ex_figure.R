@@ -52,9 +52,9 @@ legend('bottomright', pch = myChar, col = 'black', bg = 'grey', legend = paste0(
 windows(10,10)
 par(mfrow=c(1,1), las=1, cex=1.25, mar=c(6, 6, 2, 2))
 plot(subset(dfSMD, MpNo == cuv[1])[,'dDH_ex']~ subset(dfSMD, MpNo == cuv[1])[,'TrA'],
-     pch=15, col = 'white',  
+     pch=15, col = 'white',
      ylim = c(-5, 110), xlim=c(0, 2),
-     ylab =  "d-excess (\u2030)",  xlab=expression(italic(E)~(mmol~m^-2~s^-1)), cex.lab=1.3)
+     ylab = expression(paste(italic(d), "-excess (\u2030)")), xlab=expression(italic(E)~(mmol~m^-2~s^-1)), cex.lab=1.3)
 myChar <- c(21:24)
 myPal <- c('grey', 'blue', 'darkgoldenrod1', 'cyan', 'deeppink', 'black', 'darkorchid1')
 for(i in 1:length(cuv)){
