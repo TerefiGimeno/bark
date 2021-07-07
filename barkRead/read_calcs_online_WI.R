@@ -1,4 +1,7 @@
+source('barkRead/basicFunTEG.R')
+library(dplyr)
 library(lubridate)
+library(ggplot2)
 calcSatVap <- function(temp){
   e <- 0.61365 * exp(17.502 * temp/(240.97 + temp))
   return(e)
@@ -62,5 +65,47 @@ dfS$e_sat <- calcSatVap(dfS$Tref)*10/dfS$ATP
 gbark <- 1
 # bark trasnpiration under the bandage in mmol s-1
 dfS$Ebark <- gbark*dfS$e_sat*dfS$band_surface_m2
-# vapour-phase diffusion flow through the bark into the xylem
+# vapour-phase diffusion flow through the bark into the xylem in micromol/s
 dfS$Ubark_gas <- (Rtracer_2H*1e-6)*dfS$Ebark*1000
+
+dfS_summ <- dfS %>%
+  subset(ss == 'yes' & DOY != 252) %>%
+  group_by(MpNo, Date) %>%
+  summarise(Ubark_avg = mean(Ubark, na.rm = T), Ubark_se = s.err.na(Ubark),
+            Ubark_N = lengthWithoutNA(Ubark),
+            Ubark_gas_avg = mean(Ubark_gas, na.rm = T),
+            Ubark_gas_se = s.err.na(Ubark_gas))
+myNames <- data.frame(row.names = c(1:4))
+myNames$MpNo <- c(1, 2, 7, 8)
+myNames$Cuv. <- c(paste0('Cuv. ', myNames$MpNo))
+dfS_summ <- left_join(dfS_summ, myNames, by = 'MpNo')
+
+# calculate daily mean values of Ubark-gas
+kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg ~ Date, FUN = c(mean, s.err), data = dfS_summ)
+round(mean(kk$Ubark_avg.mean), 2)
+round(s.err(kk$Ubark_avg.mean), 2)
+round(mean(kk$Ubark_gas_avg.mean)*1000, 2)
+round(s.err(kk$Ubark_gas_avg.mean)*1000, 2)
+round(max(kk$Ubark_gas_avg.mean)*1000, 2)
+round(kk[which.max(kk$Ubark_gas_avg.mean), 'Ubark_gas_avg.s.err']*1000, 2)
+
+summary(aov(Ubark ~ MpNo_m * fDOY, data = dfS))
+
+# graph Ubark over time
+windows(12, 8)
+ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) + 
+  geom_errorbar(aes(ymin=Ubark_avg - Ubark_se, ymax=Ubark_avg + Ubark_se), width=.1) +
+  geom_line()+
+  geom_point(fill = 'grey',  color = 'black', size = 4.5) +
+  scale_shape_manual(values = c(21:24))+
+  scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
+  labs(title = ' ', x='', y = expression(italic(U)[bark]~(mu*mol~s^-1)))+
+  theme(axis.text = element_text(size = rel(1.5))) +
+  theme(axis.title.y = element_text(size = rel(1.75))) +
+  scale_fill_manual(name = " ", values = c(rep('grey', 4))) +
+  theme(legend.title = element_blank(), legend.key = element_blank(), legend.position = c(0.075, 0.125))+
+  theme(legend.text=element_text(size=rel(1.15)))+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  theme(panel.background = element_blank())+
+  theme(axis.line = element_line(colour = "black"))+
+  theme(panel.border = element_rect(colour = "black", fill=NA))
