@@ -28,6 +28,9 @@ dfS$d2H_E <- (dfS$FlowOut*dfS$H2Oout_G*dfS$dDH_out*0.001 - dfS$FlowIn*dfS$H2Oin_
 
 myMpNo <- unique(dfS$MpNo)
 
+dfSwhole <- dfS
+dfS <- subset(dfS, DOY != 252)
+
 windows(12,8)
 par(mfrow=c(3, 4), mar = c(0, 5, 4, 0))
 plot(subset(dfS, MpNo == myMpNo[1])$d18O_in ~ subset(dfS, MpNo == myMpNo[1])$DT,

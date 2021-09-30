@@ -96,13 +96,13 @@ windows(12, 8)
 ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) + 
   geom_errorbar(aes(ymin=Ubark_avg - Ubark_se, ymax=Ubark_avg + Ubark_se), width=.1) +
   geom_line()+
-  geom_point(fill = 'grey',  color = 'black', size = 4.5) +
+  geom_point(fill = 'white',  color = 'black', size = 4.5) +
   scale_shape_manual(values = c(21:24))+
   scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
   labs(title = ' ', x='', y = expression(italic(U)[bark]~(mu*mol~s^-1)))+
-  theme(axis.text = element_text(size = rel(1.5))) +
-  theme(axis.title.y = element_text(size = rel(1.75))) +
-  scale_fill_manual(name = " ", values = c(rep('grey', 4))) +
+  theme(axis.text = element_text(size = rel(1.75))) +
+  theme(axis.title.y = element_text(size = rel(2))) +
+  scale_fill_manual(name = " ", values = c(rep('white', 5))) +
   theme(legend.title = element_blank(), legend.key = element_blank(), legend.position = c(0.075, 0.125))+
   theme(legend.text=element_text(size=rel(1.15)))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
