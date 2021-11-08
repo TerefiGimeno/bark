@@ -56,7 +56,8 @@ dfS$R_2H_E <- (dfS$d2H_E*0.001 +1)*RVSMOW_2H
 # 2H/H molar fraction of water injected to the bandage in micromol/mol:
 Rtracer_2H <- 16124.41
 # uptake of tracer through the bark in micromol/s:
-dfS$Ubark <- dfS$R_2H_E * dfS$E_branch *1000/Rtracer_2H
+# dfS$Ubark <- dfS$R_2H_E * dfS$E_branch *1000/Rtracer_2H
+dfS$Ubark <- dfS$E_branch*(dfS$R_2H_E - dfS$d2H_b)/(Rtracer_2H - dfS$d2H_b)
 dfS$Ubark[which(dfS$ss == 'no')] <- NA
 dfS$e_sat <- calcSatVap(dfS$Tref)*10/dfS$ATP
 # bark conductance to H2O: 1mmol m-2 s-1
@@ -74,7 +75,8 @@ dfS_summ <- dfS %>%
   summarise(Ubark_avg = mean(Ubark, na.rm = T), Ubark_se = s.err.na(Ubark),
             Ubark_N = lengthWithoutNA(Ubark),
             Ubark_gas_avg = mean(Ubark_gas, na.rm = T),
-            Ubark_gas_se = s.err.na(Ubark_gas))
+            Ubark_gas_se = s.err.na(Ubark_gas),
+            E_avg = mean(TrA, na.rm = T), E_se = s.err.na(TrA))
 myNames <- data.frame(row.names = c(1:4))
 myNames$MpNo <- c(1, 2, 7, 8)
 myNames$Cuv. <- c(paste0('Cuv. ', myNames$MpNo))
@@ -83,7 +85,7 @@ dfS_summ <- left_join(dfS_summ, myNames, by = 'MpNo')
 # calculate daily mean values of Ubark-gas
 kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg ~ Date, FUN = c(mean, s.err), data = dfS_summ)
 round(mean(kk$Ubark_avg.mean), 2)
-round(s.err(kk$Ubark_avg.mean), 2)
+round(s.err(kk$Ubark_avg.mean), 3)
 round(mean(kk$Ubark_gas_avg.mean)*1000, 2)
 round(s.err(kk$Ubark_gas_avg.mean)*1000, 2)
 round(max(kk$Ubark_gas_avg.mean)*1000, 2)
@@ -96,14 +98,16 @@ windows(12, 8)
 ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) + 
   geom_errorbar(aes(ymin=Ubark_avg - Ubark_se, ymax=Ubark_avg + Ubark_se), width=.1) +
   geom_line()+
-  geom_point(fill = 'white',  color = 'black', size = 4.5) +
-  scale_shape_manual(values = c(21:24))+
+  scale_shape_manual(values = c(19, 15, 18, 17)) +
+  geom_point(aes(colour = E_avg), size = 4.5) +
+  scale_color_gradient(low = "blue", high = "red") +
+  labs(shape=" ",col=expression(italic(E)~(mmol~m^-2~s^-1))) +
   scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
-  labs(title = ' ', x='', y = expression(italic(U)[bark]~(mu*mol~s^-1)))+
+  labs(title = ' ', x='', y = expression(italic(U)[bark]~(mmol~s^-1)))+
   theme(axis.text = element_text(size = rel(1.75))) +
   theme(axis.title.y = element_text(size = rel(2))) +
   scale_fill_manual(name = " ", values = c(rep('white', 5))) +
-  theme(legend.title = element_blank(), legend.key = element_blank(), legend.position = c(0.075, 0.125))+
+  theme(legend.key = element_blank(), legend.position = c(0.9, 0.75))+
   theme(legend.text=element_text(size=rel(1.15)))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
   theme(panel.background = element_blank())+
