@@ -59,15 +59,18 @@ Rtracer_2H <- 16124.41
 # dfS$Ubark <- dfS$R_2H_E * dfS$E_branch *1000/Rtracer_2H
 dfS$Ubark <- dfS$E_branch*(dfS$R_2H_E - dfS$d2H_b)/(Rtracer_2H - dfS$d2H_b)
 dfS$Ubark[which(dfS$ss == 'no')] <- NA
+# calculate saturated vapor deficit for a given temperature in mol mol-1
+# first calculate e_sata in kPa and convert to mbar (multiply by 10)
+# , then convert to mol mol-1 dividing by atmospheric pressure in mbar
 dfS$e_sat <- calcSatVap(dfS$Tref)*10/dfS$ATP
 # bark conductance to H2O: 1mmol m-2 s-1
 # based on measurements for Co2 on Pinus monticola 
 # Cernusak et al. 2001 Oecologia
 gbark <- 1
-# bark trasnpiration under the bandage in mmol s-1
+# bark transpiration under the bandage in mmol s-1
 dfS$Ebark <- gbark*dfS$e_sat*dfS$band_surface_m2
-# vapour-phase diffusion flow through the bark into the xylem in micromol/s
-dfS$Ubark_gas <- (Rtracer_2H*1e-6)*dfS$Ebark*1000
+# isotopic vapour-phase diffusion flow through the bark into the xylem in nmol/s
+dfS$Ubark_gas <- ((Rtracer_2H*1e-06)*dfS$Ebark*0.001)*1e09
 
 dfS_summ <- dfS %>%
   subset(ss == 'yes' & DOY != 252) %>%
@@ -84,12 +87,12 @@ dfS_summ <- left_join(dfS_summ, myNames, by = 'MpNo')
 
 # calculate daily mean values of Ubark-gas
 kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg ~ Date, FUN = c(mean, s.err), data = dfS_summ)
-round(mean(kk$Ubark_avg.mean), 2)
-round(s.err(kk$Ubark_avg.mean), 3)
-round(mean(kk$Ubark_gas_avg.mean)*1000, 2)
-round(s.err(kk$Ubark_gas_avg.mean)*1000, 2)
-round(max(kk$Ubark_gas_avg.mean)*1000, 2)
-round(kk[which.max(kk$Ubark_gas_avg.mean), 'Ubark_gas_avg.s.err']*1000, 2)
+round(mean(kk$Ubark_avg.mean*1000), 2)
+round(s.err(kk$Ubark_avg.mean*1000), 2)
+round(mean(kk$Ubark_gas_avg.mean), 2)
+round(s.err(kk$Ubark_gas_avg.mean), 2)
+round(max(kk$Ubark_gas_avg.mean), 2)
+round(kk[which.max(kk$Ubark_gas_avg.mean), 'Ubark_gas_avg.s.err'], 2)
 
 summary(aov(Ubark ~ MpNo_m * fDOY, data = dfS))
 
@@ -99,15 +102,16 @@ ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) +
   geom_errorbar(aes(ymin=Ubark_avg - Ubark_se, ymax=Ubark_avg + Ubark_se), width=.1) +
   geom_line()+
   scale_shape_manual(values = c(19, 15, 18, 17)) +
-  geom_point(aes(colour = E_avg), size = 4.5) +
+  geom_point(aes(colour = E_avg), size = 5) +
   scale_color_gradient(low = "blue", high = "red") +
-  labs(shape=" ",col=expression(italic(E)~(mmol~m^-2~s^-1))) +
+  labs(col=expression(italic(E)~(mmol~m^-2~s^-1)), shape=" ") +
   scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
-  labs(title = ' ', x='', y = expression(italic(U)[bark]~(mmol~s^-1)))+
+  labs(title = ' ', x='', y = expression(italic(U)[bark]~(mmol~s^-1)), size = rel(2))+
   theme(axis.text = element_text(size = rel(1.75))) +
   theme(axis.title.y = element_text(size = rel(2))) +
   scale_fill_manual(name = " ", values = c(rep('white', 5))) +
   theme(legend.key = element_blank(), legend.position = c(0.9, 0.75))+
+  theme(legend.title = element_text(size = rel(1.3))) +
   theme(legend.text=element_text(size=rel(1.15)))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
   theme(panel.background = element_blank())+

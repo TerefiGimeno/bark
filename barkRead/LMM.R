@@ -15,6 +15,7 @@ mySumm <- as.data.frame(dplyr::summarise(dplyr::group_by(barkID, Tissue, Species
 barkSumm <- as.data.frame(dplyr::summarise(dplyr::group_by(barkID, Species, Campaign, Tissue, Segment2),
                                          d2H_mean = mean(d2H, na.rm = T), d2H_se = s.err.na(d2H),
                                          d18O_mean = mean(d18O, na.rm = T), d18O_se = s.err.na(d18O),
+                                         RWC = mean(rwc, na.rm = T), RWC.se = s.err.na(rwc),
                                          N_is = lengthWithoutNA(d18O)))
 write.csv(barkSumm, file = 'barkOutput/barkSumm.csv', row.names = F)
 
