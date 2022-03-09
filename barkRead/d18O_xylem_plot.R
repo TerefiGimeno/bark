@@ -78,6 +78,18 @@ myPlots[[3]] <-
                 position=position_dodge(.9))+
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
+  ggsignif::geom_signif(y_position=c(125), xmin=c(1.3),
+                        xmax=c(1.3), annotation=c("*"),
+                        tip_length=0, vjust = 0.4, textsize = 8, color="black") +
+  ggsignif::geom_signif(y_position=c(188), xmin=c(2.3),
+                        xmax=c(2.3), annotation=c("*"),
+                        tip_length=0, vjust = 0.4, textsize = 8, color="black") +
+  ggsignif::geom_signif(y_position=c(75), xmin=c(3.3),
+                        xmax=c(3.3), annotation=c("*"),
+                        tip_length=0, vjust = 0.4, textsize = 8, color="black") +
+  ggsignif::geom_signif(y_position=c(185), xmin=c(4.3),
+                        xmax=c(4.3), annotation=c("*"),
+                        tip_length=0, vjust = 0.4, textsize = 8, color="black") +
   ylim(-105, 200)+
   labs(title = expression(bold('  (c)')~italic('Pinus sylvestris')), x='', y = expression(delta^2*H~('\u2030')))+
   theme(plot.title = element_text(margin = margin(t = 10, b = -20)))+
@@ -96,6 +108,9 @@ myPlots[[4]] <-
                 position=position_dodge(.9))+
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
+  ggsignif::geom_signif(y_position=c(125), xmin=c(1.3),
+                        xmax=c(1.3), annotation=c("*"),
+                        tip_length=0, vjust = 0.8, textsize = 8, color="black") +
   labs(title = expression(bold(' (d)')~italic('Fagus sylvatica')), x='', y = '')+
   scale_y_continuous(position = "right", limits = c(-105, 200))+
   theme(plot.title = element_text(margin = margin(t = 10, b = -20)))+

@@ -48,13 +48,13 @@ legend('topleft', pch = rep(19, 7), col = myPal, legend = unique(dfSMD$datePrett
 legend('bottomright', pch = myChar, col = 'black', bg = 'grey', legend = paste0('Cuv.', cuv), bty = 'n')
 
 
-#version2
+#version2 (the good one)
 windows(10,10)
 par(mfrow=c(1,1), las=1, cex=1.25, mar=c(6, 6, 2, 2))
 plot(subset(dfSMD, MpNo == cuv[1])[,'dDH_ex']~ subset(dfSMD, MpNo == cuv[1])[,'TrA'],
      pch=15, col = 'white',
      ylim = c(-5, 110), xlim=c(0, 2),
-     ylab = expression(paste(italic(d), "-excess (\u2030)")), xlab=expression(italic(E)~(mmol~m^-2~s^-1)), cex.lab=1.3)
+     ylab = expression(paste(italic(d), "-excess (\u2030)")), xlab=expression(italic(E)[leaf]~(mmol~m^-2~s^-1)), cex.lab=1.3)
 myChar <- c(21:24)
 myPal <- c('grey', 'blue', 'darkgoldenrod1', 'cyan', 'deeppink', 'black', 'darkorchid1')
 for(i in 1:length(cuv)){
@@ -69,7 +69,7 @@ plotrix::ablineclip(lm(dDH_ex ~ TrA, data = dfSMD),
 plotrix::ablineclip(lm(dDH_ex ~ TrA, data = subset(dfSMD, day >= 5)),
                     x1 = min(dfSMD$TrA), x2 = max(dfSMD$TrA), lwd = 2)
 legend('topleft', pch = rep(19, 7), col = myPal, legend = unique(dfSMD$datePretty), bty ='n')
-legend('bottomright', pch = myChar, col = 'black', bg = 'grey', legend = paste0('Cuv.', cuv), bty = 'n')
+legend('bottomright', pch = myChar, col = 'black', bg = 'grey', legend = paste0('Cuv. ', c('A', 'B', 'C', 'D')), bty = 'n')
 
 sumSep <- as.data.frame(sumSep)
 sumSepL <- list()

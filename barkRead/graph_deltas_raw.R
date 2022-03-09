@@ -34,7 +34,7 @@ dfS <- subset(dfS, DOY != 252)
 windows(12,8)
 par(mfrow=c(3, 4), mar = c(0, 5, 4, 0))
 plot(subset(dfS, MpNo == myMpNo[1])$d18O_in ~ subset(dfS, MpNo == myMpNo[1])$DT,
-     pch =19, col = 'blue', ylim = c(-25, 30), main = 'Cuvette 1', axes = F,
+     pch =19, col = 'blue', ylim = c(-25, 30), main = 'Cuvette A', axes = F,
      ylab = expression(paste(delta^{18}, "O (\u2030)")), xlab = '', cex.lab = 1.6)
 points(subset(dfS, MpNo == myMpNo[1])$d18O_out ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[1])$d18O_E ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'black')
@@ -50,7 +50,7 @@ legend('topleft', expression(bold((a))), bty = 'n', cex = 1.2, pt.cex = 1)
 par(mar = c(0, 5*2/3, 4, 5/3))
 plot(subset(dfS, MpNo == myMpNo[2])$d18O_in ~ subset(dfS, MpNo == myMpNo[2])$DT,
      pch =19, col = 'blue', ylim = c(-25, 30), axes = F,
-     ylab = '', xlab = '', main = 'Cuvette 2')
+     ylab = '', xlab = '', main = 'Cuvette B')
 points(subset(dfS, MpNo == myMpNo[2])$d18O_out ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[2])$d18O_E ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[2])$d18O_b[1], 0, lty = 2)
@@ -65,7 +65,7 @@ legend('topleft', expression(bold((b))), bty = 'n', cex = 1.2, pt.cex = 1)
 par(mar = c(0, 5/3, 4, 5*2/3))
 plot(subset(dfS, MpNo == myMpNo[3])$d18O_in ~ subset(dfS, MpNo == myMpNo[3])$DT,
      pch =19, col = 'blue', ylim = c(-25, 30), axes = F,
-     ylab = '', xlab = '', main = 'Cuvette 7')
+     ylab = '', xlab = '', main = 'Cuvette C')
 points(subset(dfS, MpNo == myMpNo[3])$d18O_out ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[3])$d18O_E ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[3])$d18O_b[1], 0, lty = 2)
@@ -83,7 +83,7 @@ legend('topright', legend = c('Xyl. Up', 'Xyl. Down'), bty = 'n', lty = c(2, 3),
 par(mar = c(0, 0, 4, 5))
 plot(subset(dfS, MpNo == myMpNo[4])$d18O_in ~ subset(dfS, MpNo == myMpNo[4])$DT,
      pch =19, col = 'blue', ylim = c(-25, 30), axes = F,
-     ylab = '', xlab = '', main = 'Cuvette 8')
+     ylab = '', xlab = '', main = 'Cuvette D')
 points(subset(dfS, MpNo == myMpNo[4])$d18O_out ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'red')
 points(subset(dfS, MpNo == myMpNo[4])$d18O_E ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[4])$d18O_b[1], 0, lty = 2)
@@ -158,7 +158,7 @@ legend('topleft', expression(bold((h))), bty = 'n', cex = 1.2, pt.cex = 1)
 par(mar = c(4, 5, 0, 0))
 plot(subset(dfS, MpNo == myMpNo[1])$TrA ~ subset(dfS, MpNo == myMpNo[1])$DT,
      pch = 19, cex = 1.25, col = 'darkgreen', ylim = c(0, 2.25), cex.lab = 1.6,
-     ylab = expression(italic(E)~(mmol~m^-2~s^-1)), xlab = '')
+     ylab = expression(italic(E)[leaf]~(mmol~m^-2~s^-1)), xlab = '')
 lines(subset(dfS, MpNo == myMpNo[1])$TrA ~ subset(dfS, MpNo == myMpNo[1])$DT, col ='darkgreen')
 legend('topleft', expression(bold((i))), bty = 'n', cex = 1.2, pt.cex = 1)
 

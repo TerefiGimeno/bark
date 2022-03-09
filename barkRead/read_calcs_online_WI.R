@@ -82,7 +82,9 @@ dfS_summ <- dfS %>%
             E_avg = mean(TrA, na.rm = T), E_se = s.err.na(TrA))
 myNames <- data.frame(row.names = c(1:4))
 myNames$MpNo <- c(1, 2, 7, 8)
-myNames$Cuv. <- c(paste0('Cuv. ', myNames$MpNo))
+myNames$Cuv. <- ifelse(myNames$MpNo == 1, 'Cuv. A', 'Cuv. D')
+myNames[which(myNames$MpNo == 2), 'Cuv.'] <- 'Cuv. B'
+myNames[which(myNames$MpNo == 7), 'Cuv.'] <- 'Cuv. C'
 dfS_summ <- left_join(dfS_summ, myNames, by = 'MpNo')
 
 # calculate daily mean values of Ubark-gas
@@ -104,7 +106,7 @@ ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) +
   scale_shape_manual(values = c(19, 15, 18, 17)) +
   geom_point(aes(colour = E_avg), size = 5) +
   scale_color_gradient(low = "blue", high = "red") +
-  labs(col=expression(italic(E)~(mmol~m^-2~s^-1)), shape=" ") +
+  labs(col=expression(italic(E)[leaf]~(mmol~m^-2~s^-1)), shape=" ") +
   scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
   labs(title = ' ', x='', y = expression(italic(U)[bark]~(mmol~s^-1)), size = rel(2))+
   theme(axis.text = element_text(size = rel(1.75))) +
