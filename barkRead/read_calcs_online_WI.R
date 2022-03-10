@@ -1,4 +1,5 @@
-source('barkRead/basicFunTEG.R')
+###previous####
+
 library(dplyr)
 library(lubridate)
 library(ggplot2)
@@ -6,6 +7,9 @@ calcSatVap <- function(temp){
   e <- 0.61365 * exp(17.502 * temp/(240.97 + temp))
   return(e)
 }
+
+####read July 2018 data####
+
 dfJ <- read.table('barkData/July24_complete.csv', sep = ';', header = TRUE)
 dfJ$DT <- as.POSIXct(dfJ$DT, format="%Y-%m-%d %H:%M:%S")
 dfJ$DOY <- yday(dfJ$DT)
@@ -21,6 +25,8 @@ dfJ$d2H_E <- (dfJ$FlowOut*dfJ$H2Oout_G*dfJ$dDH_out*0.001 - dfJ$FlowIn*dfJ$H2Oin_
   (dfJ$FlowOut*dfJ$H2Oout_G - dfJ$FlowIn*dfJ$H2Oin_G)
 dfJ$dDH_ex <- dfJ$dDH_out - 8*dfJ$d18O_out
 dfJ$dDH_ex_a <- dfJ$dDH_in - 8*dfJ$d18O_in
+
+####read September 2018 data####
 
 dfS <- read.table('barkData/Sept_complete.csv', sep = ';', header = TRUE)
 dfS$DT <- as.POSIXct(dfS$DT, format="%Y-%m-%d %H:%M:%S")
@@ -87,7 +93,8 @@ myNames[which(myNames$MpNo == 2), 'Cuv.'] <- 'Cuv. B'
 myNames[which(myNames$MpNo == 7), 'Cuv.'] <- 'Cuv. C'
 dfS_summ <- left_join(dfS_summ, myNames, by = 'MpNo')
 
-# calculate daily mean values of Ubark-gas
+#### calculate daily mean values of Ubark-gas####
+
 kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg ~ Date, FUN = c(mean, s.err), data = dfS_summ)
 round(mean(kk$Ubark_avg.mean*1000), 2)
 round(s.err(kk$Ubark_avg.mean*1000), 2)
@@ -98,7 +105,8 @@ round(kk[which.max(kk$Ubark_gas_avg.mean), 'Ubark_gas_avg.s.err'], 2)
 
 summary(aov(Ubark ~ MpNo_m * fDOY, data = dfS))
 
-# graph Ubark over time
+####graph Ubark over time ####
+
 windows(12, 8)
 ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) + 
   geom_errorbar(aes(ymin=Ubark_avg - Ubark_se, ymax=Ubark_avg + Ubark_se), width=.1) +

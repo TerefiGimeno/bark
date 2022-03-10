@@ -37,7 +37,10 @@ plot(subset(dfS, MpNo == myMpNo[1])$d18O_in ~ subset(dfS, MpNo == myMpNo[1])$DT,
      pch =19, col = 'blue', ylim = c(-25, 30), main = 'Cuvette A', axes = F,
      ylab = expression(paste(delta^{18}, "O (\u2030)")), xlab = '', cex.lab = 1.6)
 points(subset(dfS, MpNo == myMpNo[1])$d18O_out ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'red')
-points(subset(dfS, MpNo == myMpNo[1])$d18O_E ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[1] & ss == 'yes')$d18O_E ~ subset(dfS, MpNo == myMpNo[1] & ss == 'yes')$DT,
+       pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[1] & ss == 'no')$d18O_E ~ subset(dfS, MpNo == myMpNo[1] & ss == 'no')$DT,
+       pch =1, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[1])$d18O_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[1])$d18O_a[1], 0, lty = 3)
 abline(subset(dfS, MpNo == myMpNo[1])$d18_up_lim[1], 0)
@@ -52,7 +55,10 @@ plot(subset(dfS, MpNo == myMpNo[2])$d18O_in ~ subset(dfS, MpNo == myMpNo[2])$DT,
      pch =19, col = 'blue', ylim = c(-25, 30), axes = F,
      ylab = '', xlab = '', main = 'Cuvette B')
 points(subset(dfS, MpNo == myMpNo[2])$d18O_out ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'red')
-points(subset(dfS, MpNo == myMpNo[2])$d18O_E ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[2] & ss == 'yes')$d18O_E ~ subset(dfS, MpNo == myMpNo[2] & ss == 'yes')$DT,
+       pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[2] & ss == 'no')$d18O_E ~ subset(dfS, MpNo == myMpNo[2] & ss == 'no')$DT,
+       pch =1, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[2])$d18O_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[2])$d18O_a[1], 0, lty = 3)
 abline(subset(dfS, MpNo == myMpNo[2])$d18_up_lim[1], 0)
@@ -67,7 +73,10 @@ plot(subset(dfS, MpNo == myMpNo[3])$d18O_in ~ subset(dfS, MpNo == myMpNo[3])$DT,
      pch =19, col = 'blue', ylim = c(-25, 30), axes = F,
      ylab = '', xlab = '', main = 'Cuvette C')
 points(subset(dfS, MpNo == myMpNo[3])$d18O_out ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'red')
-points(subset(dfS, MpNo == myMpNo[3])$d18O_E ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[3] & ss == 'yes')$d18O_E ~ subset(dfS, MpNo == myMpNo[3] & ss == 'yes')$DT,
+       pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[3] & ss == 'no')$d18O_E ~ subset(dfS, MpNo == myMpNo[3] & ss == 'no')$DT,
+       pch =1, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[3])$d18O_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[3])$d18O_a[1], 0, lty = 3)
 abline(subset(dfS, MpNo == myMpNo[3])$d18_up_lim[1], 0)
@@ -85,7 +94,10 @@ plot(subset(dfS, MpNo == myMpNo[4])$d18O_in ~ subset(dfS, MpNo == myMpNo[4])$DT,
      pch =19, col = 'blue', ylim = c(-25, 30), axes = F,
      ylab = '', xlab = '', main = 'Cuvette D')
 points(subset(dfS, MpNo == myMpNo[4])$d18O_out ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'red')
-points(subset(dfS, MpNo == myMpNo[4])$d18O_E ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[4] & ss == 'yes')$d18O_E ~ subset(dfS, MpNo == myMpNo[4] & ss == 'yes')$DT,
+       pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[4] & ss == 'no')$d18O_E ~ subset(dfS, MpNo == myMpNo[4] & ss == 'no')$DT,
+       pch =1, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[4])$d18O_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[4])$d18O_a[1], 0, lty = 3)
 abline(subset(dfS, MpNo == myMpNo[4])$d18_up_lim[1], 0)
@@ -94,17 +106,19 @@ axis(side = 1, at = seq(min(subset(dfS, MpNo == myMpNo[4])$DT), max(subset(dfS, 
      labels = F)
 box()
 legend('topleft', expression(bold((d))), bty = 'n', cex = 1.2, pt.cex = 1)
-
-legend('topright', pch = rep(19, 3), legend = c(expression(delta['in']), expression(delta[out]),
-                              expression(delta[italic(E)])), 
-       col = c('blue', 'red', 'black'), bty = 'n', cex = 1.3, pt.cex = 1)
+legend('topright', pch = c(rep(19, 3), 1), legend = c(expression(delta['in']), expression(delta[out]),
+                              expression(delta[italic(E)~ss]), expression(delta[italic(E)~nss])), 
+       col = c('blue', 'red', 'black', 'black'), bty = 'n', cex = 1.3, pt.cex = 1)
 
 par(mar = c(2, 5, 2, 0))
 plot(subset(dfS, MpNo == myMpNo[1])$dDH_in ~ subset(dfS, MpNo == myMpNo[1])$DT,
      pch =19, col = 'blue', ylim = c(-170, 750), axes = F,
      ylab = expression(paste(delta^{2}, "H (\u2030)")), xlab = '', cex.lab = 1.6)
 points(subset(dfS, MpNo == myMpNo[1])$dDH_out ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'red')
-points(subset(dfS, MpNo == myMpNo[1])$d2H_E ~ subset(dfS, MpNo == myMpNo[1])$DT, pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[1] & ss == 'yes')$d2H_E ~ subset(dfS, MpNo == myMpNo[1] & ss == 'yes')$DT,
+       pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[1] & ss == 'no')$d2H_E ~ subset(dfS, MpNo == myMpNo[1] & ss == 'no')$DT,
+       pch =1, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[1])$d2H_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[1])$d2H_a[1], 0, lty = 3)
 axis(side = 2, at = seq(-200, 600, 200), labels = seq(-200, 600, 200))
@@ -118,7 +132,10 @@ plot(subset(dfS, MpNo == myMpNo[2])$dDH_in ~ subset(dfS, MpNo == myMpNo[2])$DT,
      pch =19, col = 'blue', ylim = c(-170, 750), axes = F,
      ylab = '', xlab = '')
 points(subset(dfS, MpNo == myMpNo[2])$dDH_out ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'red')
-points(subset(dfS, MpNo == myMpNo[2])$d2H_E ~ subset(dfS, MpNo == myMpNo[2])$DT, pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[2] & ss == 'yes')$d2H_E ~ subset(dfS, MpNo == myMpNo[2] & ss == 'yes')$DT,
+       pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[2] & ss == 'no')$d2H_E ~ subset(dfS, MpNo == myMpNo[2] & ss == 'no')$DT,
+       pch =1, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[2])$d2H_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[2])$d2H_a[1], 0, lty = 3)
 axis(side = 2, at = seq(-200, 600, 200), labels = seq(-200, 600, 200))
@@ -132,7 +149,10 @@ plot(subset(dfS, MpNo == myMpNo[3])$dDH_in ~ subset(dfS, MpNo == myMpNo[3])$DT,
      pch =19, col = 'blue', ylim = c(-170, 750), axes = F,
      ylab = '', xlab = '')
 points(subset(dfS, MpNo == myMpNo[3])$dDH_out ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'red')
-points(subset(dfS, MpNo == myMpNo[3])$d2H_E ~ subset(dfS, MpNo == myMpNo[3])$DT, pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[3] & ss == 'yes')$d2H_E ~ subset(dfS, MpNo == myMpNo[3] & ss == 'yes')$DT,
+       pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[3] & ss == 'no')$d2H_E ~ subset(dfS, MpNo == myMpNo[3] & ss == 'no')$DT,
+       pch =1, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[3])$d2H_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[3])$d2H_a[1], 0, lty = 3)
 axis(side = 2, at = seq(-200, 600, 200), labels = seq(-200, 600, 200))
@@ -146,7 +166,10 @@ plot(subset(dfS, MpNo == myMpNo[4])$dDH_in ~ subset(dfS, MpNo == myMpNo[4])$DT,
      pch =19, col = 'blue', ylim = c(-170, 750), axes = F,
      ylab = '', xlab = '')
 points(subset(dfS, MpNo == myMpNo[4])$dDH_out ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'red')
-points(subset(dfS, MpNo == myMpNo[4])$d2H_E ~ subset(dfS, MpNo == myMpNo[4])$DT, pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[4] & ss == 'yes')$d2H_E ~ subset(dfS, MpNo == myMpNo[4] & ss == 'yes')$DT,
+       pch =19, col = 'black')
+points(subset(dfS, MpNo == myMpNo[4] & ss == 'no')$d2H_E ~ subset(dfS, MpNo == myMpNo[4] & ss == 'no')$DT,
+       pch =1, col = 'black')
 abline(subset(dfS, MpNo == myMpNo[4])$d2H_b[1], 0, lty = 2)
 abline(subset(dfS, MpNo == myMpNo[4])$d2H_a[1], 0, lty = 3)
 axis(side = 2, at = seq(-200, 600, 200), labels = seq(-200, 600, 200))
