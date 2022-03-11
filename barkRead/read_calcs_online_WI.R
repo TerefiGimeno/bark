@@ -59,15 +59,18 @@ dfS$d2H_E <- (dfS$FlowOut*dfS$H2Oout_G*dfS$dDH_out*0.001 - dfS$FlowIn*dfS$H2Oin_
 RVSMOW_2H <- 155.76
 # calculate 2H/H from deltas in micromol/mol:
 dfS$R_2H_E <- (dfS$d2H_E*0.001 +1)*RVSMOW_2H
+dfS$R_2H_b <- (dfS$d2H_b*0.001 +1)*RVSMOW_2H
+dfS$R_2H_a <- (dfS$d2H_a*0.001 +1)*RVSMOW_2H
 # 2H/H molar fraction of water injected to the bandage in micromol/mol:
 Rtracer_2H <- 16124.41
 # uptake of tracer through the bark in micromol/s:
 # dfS$Ubark <- dfS$R_2H_E * dfS$E_branch *1000/Rtracer_2H
-dfS$Ubark <- dfS$E_branch*(dfS$R_2H_E - dfS$d2H_b)/(Rtracer_2H - dfS$d2H_b)
-dfS$Ubark[which(dfS$ss == 'no')] <- NA
+dfS$Ubark_old <- dfS$E_branch*(dfS$R_2H_E - dfS$d2H_b)/(Rtracer_2H - dfS$d2H_b)
+dfS$Ubark <- dfS$E_branch*(dfS$R_2H_E - dfS$R_2H_b)/(Rtracer_2H - dfS$R_2H_b)
+dfS$Ubark_alt <- dfS$E_branch*(dfS$R_2H_a - dfS$R_2H_b)/(Rtracer_2H - dfS$R_2H_b)
 # calculate saturated vapor deficit for a given temperature in mol mol-1
-# first calculate e_sata in kPa and convert to mbar (multiply by 10)
-# , then convert to mol mol-1 dividing by atmospheric pressure in mbar
+# first calculate e_sat in kPa and convert to mbar (multiply by 10),
+# then convert to mol mol-1 dividing by atmospheric pressure in mbar
 dfS$e_sat <- calcSatVap(dfS$Tref)*10/dfS$ATP
 # bark conductance to H2O: 1mmol m-2 s-1
 # based on measurements for Co2 on Pinus monticola 
@@ -76,12 +79,14 @@ gbark <- 1
 # bark transpiration under the bandage in mmol s-1
 dfS$Ebark <- gbark*dfS$e_sat*dfS$band_surface_m2
 # isotopic vapour-phase diffusion flow through the bark into the xylem in nmol/s
-dfS$Ubark_gas <- ((Rtracer_2H*1e-06)*dfS$Ebark*0.001)*1e09
+dfS$Ubark_gas <- Rtracer_2H*1e-06*gbark*0.001*dfS$e_sat*dfS$band_surface_m2*1e09
 
 dfS_summ <- dfS %>%
   subset(ss == 'yes' & DOY != 252) %>%
   group_by(MpNo, Date) %>%
   summarise(Ubark_avg = mean(Ubark, na.rm = T), Ubark_se = s.err.na(Ubark),
+            Ubark_old_avg = mean(Ubark_old, na.rm = T), Ubark_old_se = s.err.na(Ubark_old),
+            Ubark_alt_avg = mean(Ubark_alt, na.rm = T), Ubark_alt_se = s.err.na(Ubark_alt),
             Ubark_N = lengthWithoutNA(Ubark),
             Ubark_gas_avg = mean(Ubark_gas, na.rm = T),
             Ubark_gas_se = s.err.na(Ubark_gas),
@@ -114,7 +119,7 @@ ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) +
   scale_shape_manual(values = c(19, 15, 18, 17)) +
   geom_point(aes(colour = E_avg), size = 5) +
   scale_color_gradient(low = "blue", high = "red") +
-  labs(col=expression(italic(E)[leaf]~(mmol~m^-2~s^-1)), shape=" ") +
+  labs(col=expression(italic(E)[leaf]~(mol~m^-2~s^-1)), shape=" ") +
   scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
   labs(title = ' ', x='', y = expression(italic(U)[bark]~(mmol~s^-1)), size = rel(2))+
   theme(axis.text = element_text(size = rel(1.75))) +

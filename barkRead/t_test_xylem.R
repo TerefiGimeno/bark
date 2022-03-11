@@ -1,3 +1,4 @@
+### prepare the data ####
 source('barkRead/basicFunTEG.R')
 bark <- read.csv('barkData/field_labelling.csv')
 barkID <- as.data.frame(dplyr::summarise(dplyr::group_by(bark, Species, Campaign, Tree,
@@ -27,6 +28,7 @@ xylem$dif_d18O_aft.bef <- xylem$d18O_aft - xylem$d18O_bef
 xylem$Site <- ifelse(xylem$Campaign == 'Autumn2018' | xylem$Campaign == 'Summer2018',
                      'Sweden', 'Spain')
 
+### t tests ####
 summer18 <- subset(xylem, Campaign == 'Summer2018')
 t.test(summer18$dif_d18O_aft.bef, alternative = 'two.sided', mu = 0)
 t.test(summer18$dif_d2H_aft.bef, alternative = 'two.sided', mu = 0)
