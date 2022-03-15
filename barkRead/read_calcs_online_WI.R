@@ -3,10 +3,19 @@
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+
 calcSatVap <- function(temp){
   e <- 0.61365 * exp(17.502 * temp/(240.97 + temp))
   return(e)
 }
+lengthWithoutNA <- function(x){
+  l <- length(which(!is.na(x)))
+  return(l)
+}
+
+s.err <- function(x){sd(x)/sqrt(length(x))}
+
+s.err.na <- function(x){sd(x, na.rm = TRUE)/sqrt(lengthWithoutNA(x))}
 
 ####read July 2018 data####
 
@@ -50,6 +59,7 @@ dfS$midday <- ifelse(dfS$timeDec >= 10 & dfS$timeDec <= 16 & dfS$PAR >= 300, 'ye
 # calculate deltas (d18O and d2H) of transpired water (d_E), according to:
 dfS$d18O_E <- (dfS$FlowOut*dfS$H2Oout_G*dfS$d18O_out*0.001 - dfS$FlowIn*dfS$H2Oin_G*dfS$d18O_in*0.001)*1000/
   (dfS$FlowOut*dfS$H2Oout_G - dfS$FlowIn*dfS$H2Oin_G)
+# add lower limit of ss based on d18O of the xylem
 dfS$ss <- ifelse(dfS$d18O_E <= dfS$d18_up_lim & dfS$PAR >= 100 &
                    dfS$timeDec >= 10 & dfS$timeDec < 18 &
                    dfS$DOY >= 247, 'yes', 'no')
