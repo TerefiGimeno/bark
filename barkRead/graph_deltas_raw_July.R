@@ -1,9 +1,26 @@
 library(lubridate)
 library(data.table)
 
-source('barkRead/read_calcs_online_WI.R')
+dfJ <- read.table('barkData/July24_complete.csv', sep = ';', header = TRUE)
+# recalculate transpiration (in mmol m-2 s-1) following Zsofia's email on 1-March-2021
+dfJ$TrA_old <- dfJ$TrA
+dfJ$TrA <- 1000*((dfJ$FlowOut/dfJ$Area)*((dfJ$H2Oout_G - dfJ$H2Oin_G)/(dfJ$ATP - dfJ$H2Oin_G)))
+dfJ$DT <- as.POSIXct(dfJ$DT, format="%Y-%m-%d %H:%M:%S")
+dfJ$DOY <- yday(dfJ$DT)
+dfJ$timeDec <- hour(dfJ$DT) + (minute(dfJ$DT)/60)
+wiJ <- read.csv("barkData/July24_xylem_wi.csv")
+dfJ <- dplyr::left_join(dfJ, wiJ, by = 'MpNo')
+dfJ$time <- yday(dfJ$DT) + (hour(dfJ$DT)+ minute(dfJ$DT)/60)/24
+# calculate deltas (d18O and d2H) of transpired water (d_E), according to:
+dfJ$d18O_E <- (dfJ$FlowOut*dfJ$H2Oout_G*dfJ$d18O_out*0.001 - dfJ$FlowIn*dfJ$H2Oin_G*dfJ$d18O_in*0.001)*1000/
+        (dfJ$FlowOut*dfJ$H2Oout_G - dfJ$FlowIn*dfJ$H2Oin_G)
+dfJ$ss <- ifelse(dfJ$d18O_E <= dfJ$d18_up_lim, 'yes', 'no')
+dfJ$d2H_E <- (dfJ$FlowOut*dfJ$H2Oout_G*dfJ$dDH_out*0.001 - dfJ$FlowIn*dfJ$H2Oin_G*dfJ$dDH_in*0.001)*1000/
+        (dfJ$FlowOut*dfJ$H2Oout_G - dfJ$FlowIn*dfJ$H2Oin_G)
+dfJ$dDH_ex <- dfJ$dDH_out - 8*dfJ$d18O_out
+dfJ$dDH_ex_a <- dfJ$dDH_in - 8*dfJ$d18O_in
 
-windows(12, 12)
+windows(12, 14)
 par(mfrow=c(3, 2), mar = c(0, 5, 4, 0), cex = 1.1)
 plot(subset(dfJ, MpNo == 2)$d18O_in ~ subset(dfJ, MpNo == 2)$DT,
      ylim = c(-22, 30), xlim = c(min(dfJ$DT), max(dfJ$DT)),
@@ -84,7 +101,7 @@ legend('topleft', expression(bold((d))), bty = 'n', cex = 1.2, pt.cex = 1)
 par(mar = c(4, 5, 0, 0))
 plot(subset(dfJ, MpNo == 2)$TrA ~ subset(dfJ, MpNo == 2)$DT,
      ylim = c(0, 2), xlim = c(min(dfJ$DT), max(dfJ$DT)),
-     pch = 19, col = 'darkgreen', cex.lab = 1.6,
+     pch = 19, col = 'darkgreen', cex.lab = 1.4,
      ylab = expression(italic(E)[leaf]~(mmol~m^-2~s^-1)), xlab = '')
 lines(subset(dfJ, MpNo == 2)$TrA ~ subset(dfJ, MpNo == 2)$DT, col ='darkgreen')
 legend('topleft', expression(bold((e))), bty = 'n', cex = 1.2, pt.cex = 1)

@@ -1,6 +1,9 @@
 library(lubridate)
 
 dfS <- read.table('barkData/Sept_complete.csv', sep = ';', header = TRUE)
+# recalculate transpiration (in mmol m-2 s-1) following Zsofia's email on 1-March-2021
+dfS$TrA_old <- dfS$TrA
+dfS$TrA <- 1000*((dfS$FlowOut/dfS$Area)*((dfS$H2Oout_G - dfS$H2Oin_G)/(dfS$ATP - dfS$H2Oin_G)))
 dfS$DT <- as.POSIXct(dfS$DT, format="%Y-%m-%d %H:%M:%S")
 wiS <- read.csv("barkData/Sept_xylem_wi.csv")
 dfS <- dplyr::left_join(dfS, wiS, by = 'MpNo')

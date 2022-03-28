@@ -17,9 +17,14 @@ s.err <- function(x){sd(x)/sqrt(length(x))}
 
 s.err.na <- function(x){sd(x, na.rm = TRUE)/sqrt(lengthWithoutNA(x))}
 
+mean.na <- function(x){mean(x, na.rm =T)}
+
 ####read July 2018 data####
 
 dfJ <- read.table('barkData/July24_complete.csv', sep = ';', header = TRUE)
+# recalculate transpiration (in mmol m-2 s-1) following Zsofia's email on 1-March-2021
+dfJ$TrA_old <- dfJ$TrA
+dfJ$TrA <- 1000*((dfJ$FlowOut/dfJ$Area)*((dfJ$H2Oout_G - dfJ$H2Oin_G)/(dfJ$ATP - dfJ$H2Oin_G)))
 dfJ$DT <- as.POSIXct(dfJ$DT, format="%Y-%m-%d %H:%M:%S")
 dfJ$DOY <- yday(dfJ$DT)
 dfJ$timeDec <- hour(dfJ$DT) + (minute(dfJ$DT)/60)
@@ -38,6 +43,9 @@ dfJ$dDH_ex_a <- dfJ$dDH_in - 8*dfJ$d18O_in
 ####read September 2018 data####
 
 dfS <- read.table('barkData/Sept_complete.csv', sep = ';', header = TRUE)
+# recalculate transpiration (in mmol m-2 s-1) following Zsofia's email on 1-March-2021
+dfS$TrA_old <- dfS$TrA
+dfS$TrA <- 1000*((dfS$FlowOut/dfS$Area)*((dfS$H2Oout_G - dfS$H2Oin_G)/(dfS$ATP - dfS$H2Oin_G)))
 dfS$DT <- as.POSIXct(dfS$DT, format="%Y-%m-%d %H:%M:%S")
 wiS <- read.csv("barkData/Sept_xylem_wi.csv")
 dfS <- dplyr::left_join(dfS, wiS, by = 'MpNo')
@@ -48,12 +56,11 @@ dfS$band_surface_m2 <- dfS$diam_cm * pi * dfS$length_cm/10000
 # y is needle area in m2 and x is branch sectional area in m2 (mm2???)
 dfS$cross_section_area_mm2 <- pi*(dfS$diam_cm*10*0.5)^2
 dfS$needle_area_m2 <- 0.003*dfS$cross_section_area_mm2^2 - 0.08*dfS$cross_section_area_mm2
-# calculate branch transpiration rate
+# calculate branch transpiration rate (in mmol s-1)
 dfS$E_branch <- dfS$TrA * dfS$needle_area_m2
 dfS$time <- yday(dfS$DT) + (hour(dfS$DT)+ minute(dfS$DT)/60)/24
 dfS$Date <- as.Date(dfS$DT)
 dfS$DOY <- yday(dfS$DT)
-dfS$fDOY <- as.factor(dfS$DOY)
 dfS$timeDec <- hour(dfS$DT)+ (minute(dfS$DT)/60)
 dfS$midday <- ifelse(dfS$timeDec >= 10 & dfS$timeDec <= 16 & dfS$PAR >= 300, 'yes', 'no')
 # calculate deltas (d18O and d2H) of transpired water (d_E), according to:
@@ -67,36 +74,41 @@ dfS$d2H_E <- (dfS$FlowOut*dfS$H2Oout_G*dfS$dDH_out*0.001 - dfS$FlowIn*dfS$H2Oin_
   (dfS$FlowOut*dfS$H2Oout_G - dfS$FlowIn*dfS$H2Oin_G)
 # 2H/H molar fraction of VSMOW in micromol/mol:
 RVSMOW_2H <- 155.76
-# calculate 2H/H from deltas in micromol/mol:
+# calculate 2H/H ratios from deltas in micromol/mol:
 dfS$R_2H_E <- (dfS$d2H_E*0.001 +1)*RVSMOW_2H
 dfS$R_2H_b <- (dfS$d2H_b*0.001 +1)*RVSMOW_2H
 dfS$R_2H_a <- (dfS$d2H_a*0.001 +1)*RVSMOW_2H
-# 2H/H molar fraction of water injected to the bandage in micromol/mol:
+# 2H/H ratio of water injected to the bandage in micromol/mol:
 Rtracer_2H <- 16124.41
 # uptake of tracer through the bark in micromol/s:
 # dfS$Ubark <- dfS$R_2H_E * dfS$E_branch *1000/Rtracer_2H
 dfS$Ubark_old <- dfS$E_branch*(dfS$R_2H_E - dfS$d2H_b)/(Rtracer_2H - dfS$d2H_b)
-dfS$Ubark <- dfS$E_branch*(dfS$R_2H_E - dfS$R_2H_b)/(Rtracer_2H - dfS$R_2H_b)
-dfS$Ubark_alt <- dfS$E_branch*(dfS$R_2H_a - dfS$R_2H_b)/(Rtracer_2H - dfS$R_2H_b)
+dfS$Ubark_ratio <- dfS$E_branch*(dfS$R_2H_E - dfS$R_2H_b)/(Rtracer_2H - dfS$R_2H_b)
+dfS$Ubark_ratio_alt <- dfS$E_branch*(dfS$R_2H_a - dfS$R_2H_b)/(Rtracer_2H - dfS$R_2H_b)
+# calculate molar fractions instead of ratios (in micromol/mol)
+mol_tracer_2H <- Rtracer_2H*1e06/(Rtracer_2H+1e06)
+dfS$mol_2H_E <- dfS$R_2H_E*1e06/(dfS$R_2H_E+1e06)
+dfS$mol_2H_b <- dfS$R_2H_b*1e06/(dfS$R_2H_b+1e06)
+# calculate liquid uptake rates (first in mmol s-1, then multiply by 1000 get umol/s)
+dfS$Ubark <- 1000*dfS$E_branch*(dfS$mol_2H_E - dfS$mol_2H_b)/(mol_tracer_2H - dfS$mol_2H_b)
+# when d2H_E < d2H_xylem, then Ubark is negative, this is not possible
+dfS[which(dfS$Ubark < 0), 'Ubark'] <- NA
 # calculate saturated vapor deficit for a given temperature in mol mol-1
 # first calculate e_sat in kPa and convert to mbar (multiply by 10),
 # then convert to mol mol-1 dividing by atmospheric pressure in mbar
 dfS$e_sat <- calcSatVap(dfS$Tref)*10/dfS$ATP
-# bark conductance to H2O: 1mmol m-2 s-1
+# bark conductance to H2O: 1 mmol m-2 s-1
 # based on measurements for Co2 on Pinus monticola 
 # Cernusak et al. 2001 Oecologia
 gbark <- 1
-# bark transpiration under the bandage in mmol s-1
-dfS$Ebark <- gbark*dfS$e_sat*dfS$band_surface_m2
 # isotopic vapour-phase diffusion flow through the bark into the xylem in nmol/s
-dfS$Ubark_gas <- Rtracer_2H*1e-06*gbark*0.001*dfS$e_sat*dfS$band_surface_m2*1e09
+dfS$Ubark_gas <- mol_tracer_2H*gbark*dfS$e_sat*dfS$band_surface_m2
+dfS$Ubark_gas_old <- Rtracer_2H*1e-06*gbark*0.001*dfS$e_sat*dfS$band_surface_m2*1e09
 
 dfS_summ <- dfS %>%
   subset(ss == 'yes' & DOY != 252) %>%
   group_by(MpNo, Date) %>%
   summarise(Ubark_avg = mean(Ubark, na.rm = T), Ubark_se = s.err.na(Ubark),
-            Ubark_old_avg = mean(Ubark_old, na.rm = T), Ubark_old_se = s.err.na(Ubark_old),
-            Ubark_alt_avg = mean(Ubark_alt, na.rm = T), Ubark_alt_se = s.err.na(Ubark_alt),
             Ubark_N = lengthWithoutNA(Ubark),
             Ubark_gas_avg = mean(Ubark_gas, na.rm = T),
             Ubark_gas_se = s.err.na(Ubark_gas),
@@ -108,17 +120,17 @@ myNames[which(myNames$MpNo == 2), 'Cuv.'] <- 'Cuv. B'
 myNames[which(myNames$MpNo == 7), 'Cuv.'] <- 'Cuv. C'
 dfS_summ <- left_join(dfS_summ, myNames, by = 'MpNo')
 
-#### calculate daily mean values of Ubark-gas####
+#### calculate daily mean values of Ubark-gas in nmol s-1 ####
 
-kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg ~ Date, FUN = c(mean, s.err), data = dfS_summ)
-round(mean(kk$Ubark_avg.mean*1000), 2)
-round(s.err(kk$Ubark_avg.mean*1000), 2)
-round(mean(kk$Ubark_gas_avg.mean), 2)
-round(s.err(kk$Ubark_gas_avg.mean), 2)
-round(max(kk$Ubark_gas_avg.mean), 2)
-round(kk[which.max(kk$Ubark_gas_avg.mean), 'Ubark_gas_avg.s.err'], 2)
+kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg ~ Date, FUN = c(mean.na, s.err.na), data = dfS_summ)
+round(mean(kk$Ubark_avg.mean.na), 2)
+round(s.err(kk$Ubark_avg.mean.na), 2)
+round(mean(kk$Ubark_gas_avg.mean.na), 2)
+round(s.err(kk$Ubark_gas_avg.mean.na), 2)
+round(max(kk$Ubark_gas_avg.mean.na), 2)
+round(kk[which.max(kk$Ubark_gas_avg.mean.na), 'Ubark_gas_avg.s.err.na'], 2)
 
-summary(aov(Ubark ~ MpNo_m * fDOY, data = dfS))
+summary(aov(Ubark ~ MpNo_m * as.factor(DOY), data = dfS))
 
 ####graph Ubark over time ####
 
@@ -129,9 +141,9 @@ ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) +
   scale_shape_manual(values = c(19, 15, 18, 17)) +
   geom_point(aes(colour = E_avg), size = 5) +
   scale_color_gradient(low = "blue", high = "red") +
-  labs(col=expression(italic(E)[leaf]~(mol~m^-2~s^-1)), shape=" ") +
+  labs(col=expression(italic(E)[leaf]~(mmol~m^-2~s^-1)), shape=" ") +
   scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
-  labs(title = ' ', x='', y = expression(italic(U)[bark]~(mmol~s^-1)), size = rel(2))+
+  labs(title = ' ', x='', y = expression(italic(U)[bark]~(mu*mol~s^-1)), size = rel(2))+
   theme(axis.text = element_text(size = rel(1.75))) +
   theme(axis.title.y = element_text(size = rel(2))) +
   scale_fill_manual(name = " ", values = c(rep('white', 5))) +
