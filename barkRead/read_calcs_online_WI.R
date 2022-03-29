@@ -120,6 +120,7 @@ myNames[which(myNames$MpNo == 2), 'Cuv.'] <- 'Cuv. B'
 myNames[which(myNames$MpNo == 7), 'Cuv.'] <- 'Cuv. C'
 dfS_summ <- left_join(dfS_summ, myNames, by = 'MpNo')
 
+
 #### calculate daily mean values of Ubark-gas in nmol s-1 ####
 
 kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg ~ Date, FUN = c(mean.na, s.err.na), data = dfS_summ)
