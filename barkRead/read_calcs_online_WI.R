@@ -123,7 +123,9 @@ dfS_summ <- left_join(dfS_summ, myNames, by = 'MpNo')
 
 #### calculate daily mean values of Ubark-gas in nmol s-1 ####
 
-kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg ~ Date, FUN = c(mean.na, s.err.na), data = dfS_summ)
+kk <- doBy::summaryBy(Ubark_gas_avg + Ubark_avg + E_avg ~ Date, FUN = c(mean.na, s.err.na), data = dfS_summ)
+round(mean(kk$E_avg.mean.na), 2)
+round(s.err(kk$E_avg.mean.na), 2)
 round(mean(kk$Ubark_avg.mean.na), 2)
 round(s.err(kk$Ubark_avg.mean.na), 2)
 round(mean(kk$Ubark_gas_avg.mean.na), 2)
