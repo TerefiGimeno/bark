@@ -112,7 +112,8 @@ dfS_summ <- dfS %>%
             Ubark_N = lengthWithoutNA(Ubark),
             Ubark_gas_avg = mean(Ubark_gas, na.rm = T),
             Ubark_gas_se = s.err.na(Ubark_gas),
-            E_avg = mean(TrA, na.rm = T), E_se = s.err.na(TrA))
+            E_avg = mean(TrA, na.rm = T), E_se = s.err.na(TrA),
+            Ebranch_avg = mean(E_branch, na.rm = T), Ebranch_se = s.err.na(E_branch))
 myNames <- data.frame(row.names = c(1:4))
 myNames$MpNo <- c(1, 2, 7, 8)
 myNames$Cuv. <- ifelse(myNames$MpNo == 1, 'Cuv. A', 'Cuv. D')
@@ -144,7 +145,31 @@ ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) +
   scale_shape_manual(values = c(19, 15, 18, 17)) +
   geom_point(aes(colour = E_avg), size = 5) +
   scale_color_gradient(low = "blue", high = "red") +
-  labs(col=expression(italic(E)[leaf]~(mmol~m^-2~s^-1)), shape=" ") +
+  labs(col=expression(italic(E)[leaf]~(mmol~m^2~s^-1)), shape=" ") +
+  scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
+  labs(title = ' ', x='', y = expression(italic(U)[bark]~(mu*mol~s^-1)), size = rel(2))+
+  theme(axis.text = element_text(size = rel(1.75))) +
+  theme(axis.title.y = element_text(size = rel(2))) +
+  scale_fill_manual(name = " ", values = c(rep('white', 5))) +
+  theme(legend.key = element_blank(), legend.position = c(0.9, 0.75))+
+  theme(legend.title = element_text(size = rel(1.3))) +
+  theme(legend.text=element_text(size=rel(1.15)))+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  theme(panel.background = element_blank())+
+  theme(axis.line = element_line(colour = "black"))+
+  theme(panel.border = element_rect(colour = "black", fill=NA))
+
+
+# same graph but with scale based on E_branch
+
+windows(12, 8)
+ggplot(dfS_summ, aes(x=Date, y=Ubark_avg, shape = Cuv.)) + 
+  geom_errorbar(aes(ymin=Ubark_avg - Ubark_se, ymax=Ubark_avg + Ubark_se), width=.1) +
+  geom_line()+
+  scale_shape_manual(values = c(19, 15, 18, 17)) +
+  geom_point(aes(colour = Ebranch_avg), size = 5) +
+  scale_color_gradient(low = "blue", high = "red") +
+  labs(col=expression(italic(E)[branch]~(mmol~s^-1)), shape=" ") +
   scale_x_date(date_breaks = "days", date_labels = "%d-%b")+
   labs(title = ' ', x='', y = expression(italic(U)[bark]~(mu*mol~s^-1)), size = rel(2))+
   theme(axis.text = element_text(size = rel(1.75))) +
